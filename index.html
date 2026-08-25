@@ -1,1 +1,4188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08001d">
 
+<title>AFRINOVA Laboratory — Digital Transformation</title>
+
+<meta name="description"
+content="AFRINOVA Laboratory — Recherche, innovation, transformation digitale, formation et incubation.">
+
+<style>
+
+/* =========================================================
+   AFRINOVA LABORATORY
+   PREMIUM DIGITAL EXPERIENCE
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+
+    --purple:#09001f;
+    --purple2:#120033;
+
+    --blue:#087cff;
+    --cyan:#00d9ff;
+
+    --lime:#c8f000;
+    --green:#8bd400;
+
+    --white:#ffffff;
+    --text:#f6f8ff;
+    --muted:#9fa7bc;
+
+    --glass:rgba(255,255,255,.055);
+    --glass2:rgba(255,255,255,.09);
+
+    --border:rgba(255,255,255,.12);
+
+    --shadow:
+        0 25px 80px rgba(0,0,0,.45);
+
+}
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(0,119,255,.15),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(150,0,255,.16),
+            transparent 30%
+        ),
+        var(--purple);
+
+    color:var(--text);
+
+    font-family:"DM Sans",sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+/* GRID BACKGROUND */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:-5;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 95%
+        );
+
+}
+
+/* CURSOR */
+
+.cursor-glow{
+
+    position:fixed;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,217,255,.10),
+            transparent 65%
+        );
+
+    transform:translate(-50%,-50%);
+
+    z-index:0;
+
+    transition:
+        left .12s linear,
+        top .12s linear;
+
+}
+
+/* PARTICLES */
+
+.particle{
+
+    position:fixed;
+
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:var(--cyan);
+
+    box-shadow:
+        0 0 12px var(--cyan);
+
+    opacity:.5;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    animation:
+        particleMove linear infinite;
+
+}
+
+@keyframes particleMove{
+
+    0%{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.7;
+    }
+
+    90%{
+        opacity:.7;
+    }
+
+    100%{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#070014;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+    transition:
+        opacity .9s ease,
+        visibility .9s ease;
+
+}
+
+.loader.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+.loader-logo{
+
+    width:230px;
+
+    max-width:70vw;
+
+    animation:
+        logoPulse 2s ease-in-out infinite;
+
+}
+
+.loader-logo img{
+
+    width:100%;
+
+    display:block;
+
+}
+
+.loader-text{
+
+    margin-top:20px;
+
+    color:#9da6bb;
+
+    font-size:11px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+}
+
+.loader-bar{
+
+    width:210px;
+
+    height:3px;
+
+    margin-top:22px;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.1);
+
+    border-radius:50px;
+
+}
+
+.loader-bar span{
+
+    display:block;
+
+    height:100%;
+
+    width:40%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--cyan),
+            var(--lime)
+        );
+
+    animation:
+        loaderBar 1.3s infinite;
+
+}
+
+@keyframes loaderBar{
+
+    from{
+        transform:translateX(-150%);
+    }
+
+    to{
+        transform:translateX(400%);
+    }
+
+}
+
+@keyframes logoPulse{
+
+    50%{
+        transform:scale(1.04);
+        filter:
+            drop-shadow(
+                0 0 25px
+                rgba(0,217,255,.3)
+            );
+    }
+
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:82px;
+
+    z-index:2000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        0 6%;
+
+    background:
+        rgba(8,0,29,.62);
+
+    backdrop-filter:
+        blur(22px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    width:150px;
+
+}
+
+.logo img{
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+    transition:.4s;
+
+}
+
+.logo:hover img{
+
+    transform:scale(1.05);
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(0,217,255,.4)
+        );
+
+}
+
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:28px;
+
+}
+
+nav a{
+
+    position:relative;
+
+    color:#aeb5c8;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    transition:.3s;
+
+}
+
+nav a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--cyan),
+            var(--lime)
+        );
+
+    transition:.3s;
+
+}
+
+nav a:hover{
+
+    color:white;
+
+}
+
+nav a:hover::after{
+
+    width:100%;
+
+}
+
+.header-contact{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        12px 18px;
+
+    border-radius:50px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    border:
+        1px solid
+        rgba(0,217,255,.35);
+
+    background:
+        rgba(0,217,255,.07);
+
+    transition:.35s;
+
+}
+
+.header-contact:hover{
+
+    color:#03111b;
+
+    background:var(--cyan);
+
+    box-shadow:
+        0 0 30px
+        rgba(0,217,255,.35);
+
+}
+
+.menu{
+
+    display:none;
+
+    font-size:26px;
+
+    cursor:pointer;
+
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    min-height:100vh;
+
+    padding:
+        160px 7%
+        100px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.1fr
+        .9fr;
+
+    align-items:center;
+
+    gap:50px;
+
+    position:relative;
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,123,255,.18),
+            transparent 65%
+        );
+
+    filter:blur(20px);
+
+    right:-150px;
+
+    top:120px;
+
+    z-index:-1;
+
+}
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+        9px 15px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.04);
+
+    border-radius:50px;
+
+    color:#aeb7ca;
+
+    font-size:11px;
+
+    margin-bottom:25px;
+
+}
+
+.status-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--lime);
+
+    box-shadow:
+        0 0 15px
+        var(--lime);
+
+    animation:
+        statusPulse 1.6s infinite;
+
+}
+
+@keyframes statusPulse{
+
+    50%{
+        transform:scale(1.5);
+        opacity:.5;
+    }
+
+}
+
+.hero h1{
+
+    font-family:"Space Grotesk";
+
+    font-size:
+        clamp(
+            48px,
+            7vw,
+            91px
+        );
+
+    line-height:.96;
+
+    letter-spacing:-5px;
+
+    max-width:900px;
+
+}
+
+.gradient-text{
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #47ddff,
+            #5e8dff,
+            #c8f000
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    background-size:200%;
+
+    animation:
+        gradientMove 5s ease infinite;
+
+}
+
+@keyframes gradientMove{
+
+    50%{
+        background-position:100%;
+    }
+
+}
+
+.hero-description{
+
+    max-width:680px;
+
+    margin:
+        28px 0;
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    font-size:17px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+}
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:
+        15px 22px;
+
+    border-radius:14px;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.35s;
+
+    border:0;
+
+    cursor:pointer;
+
+}
+
+.btn-main{
+
+    color:#06111b;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--cyan),
+            #5580ff
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,180,255,.2);
+
+}
+
+.btn-main:hover{
+
+    transform:
+        translateY(-5px)
+        scale(1.02);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,200,255,.35);
+
+}
+
+.btn-outline{
+
+    color:white;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        var(--border);
+
+}
+
+.btn-outline:hover{
+
+    transform:translateY(-5px);
+
+    background:
+        rgba(255,255,255,.08);
+
+}
+
+/* =========================================================
+   HERO ORBIT
+========================================================= */
+
+.hero-visual{
+
+    min-height:500px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+}
+
+.orbit{
+
+    width:400px;
+    height:400px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(0,217,255,.18);
+
+    position:relative;
+
+    animation:
+        orbitRotate 25s linear infinite;
+
+}
+
+.orbit::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:45px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(200,240,0,.17);
+
+}
+
+.orbit::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:105px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(80,120,255,.18);
+
+}
+
+@keyframes orbitRotate{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+.center-logo{
+
+    position:absolute;
+
+    width:190px;
+
+    height:190px;
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(20,70,130,.65),
+            rgba(20,0,55,.9)
+        );
+
+    border:
+        1px solid
+        rgba(0,217,255,.35);
+
+    box-shadow:
+        0 0 50px
+        rgba(0,217,255,.2),
+
+        inset 0 0 50px
+        rgba(0,120,255,.12);
+
+    z-index:10;
+
+}
+
+.center-logo img{
+
+    width:145px;
+
+    filter:
+        drop-shadow(
+            0 0 18px
+            rgba(0,217,255,.35)
+        );
+
+}
+
+.orbit-node{
+
+    position:absolute;
+
+    width:80px;
+    height:80px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    color:white;
+
+    border-radius:22px;
+
+    background:
+        rgba(8,3,31,.9);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    box-shadow:
+        0 20px 40px
+        rgba(0,0,0,.4);
+
+}
+
+.node1{
+    top:-20px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.node2{
+    right:-25px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.node3{
+    bottom:-20px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.node4{
+    left:-25px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.node5{
+
+    top:50%;
+    left:50%;
+
+    width:55px;
+    height:55px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--cyan)
+        );
+
+    box-shadow:
+        0 0 35px
+        rgba(0,217,255,.5);
+
+}
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+
+    overflow:hidden;
+
+    padding:20px 0;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+.marquee-track{
+
+    width:max-content;
+
+    display:flex;
+
+    animation:
+        marquee 28s linear infinite;
+
+}
+
+.marquee span{
+
+    margin:
+        0 30px;
+
+    color:#68738b;
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    font-family:"Space Grotesk";
+
+}
+
+.marquee b{
+
+    color:var(--lime);
+
+}
+
+@keyframes marquee{
+
+    to{
+        transform:translateX(-50%);
+    }
+
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+
+    padding:
+        120px 7%;
+
+}
+
+.section-label{
+
+    color:var(--cyan);
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:17px;
+
+}
+
+.section-title{
+
+    font-family:"Space Grotesk";
+
+    font-size:
+        clamp(
+            38px,
+            5vw,
+            65px
+        );
+
+    line-height:1.03;
+
+    letter-spacing:-3px;
+
+    max-width:850px;
+
+}
+
+.section-description{
+
+    max-width:700px;
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    margin-top:20px;
+
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:16px;
+
+    margin-top:60px;
+
+}
+
+.stat{
+
+    padding:30px;
+
+    border-radius:22px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    transition:.4s;
+
+}
+
+.stat:hover{
+
+    transform:translateY(-8px);
+
+    border-color:
+        rgba(0,217,255,.35);
+
+}
+
+.stat strong{
+
+    display:block;
+
+    font-family:"Space Grotesk";
+
+    font-size:38px;
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            var(--cyan)
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+.stat span{
+
+    display:block;
+
+    margin-top:8px;
+
+    color:#7e8aa1;
+
+    font-size:12px;
+
+}
+
+/* =========================================================
+   EXPERTISE
+========================================================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:18px;
+
+    margin-top:55px;
+
+}
+
+.card{
+
+    min-height:320px;
+
+    padding:30px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:26px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    transition:
+        transform .45s,
+        border .45s,
+        box-shadow .45s;
+
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        rgba(0,217,255,.13);
+
+    filter:blur(60px);
+
+    right:-100px;
+    top:-100px;
+
+}
+
+.card:hover{
+
+    transform:
+        translateY(-12px)
+        rotateX(2deg);
+
+    border-color:
+        rgba(0,217,255,.35);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+.card-icon{
+
+    width:58px;
+    height:58px;
+
+    border-radius:17px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:23px;
+
+    margin-bottom:30px;
+
+    background:
+        rgba(0,217,255,.08);
+
+    border:
+        1px solid
+        rgba(0,217,255,.2);
+
+}
+
+.card h3{
+
+    font-family:"Space Grotesk";
+
+    font-size:20px;
+
+    margin-bottom:15px;
+
+}
+
+.card p{
+
+    color:#8995aa;
+
+    font-size:13px;
+
+    line-height:1.75;
+
+}
+
+/* =========================================================
+   INITIATIVES
+========================================================= */
+
+.projects{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:55px;
+
+}
+
+.project{
+
+    min-height:360px;
+
+    padding:30px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:27px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(0,140,255,.15),
+            transparent 35%
+        ),
+        rgba(255,255,255,.035);
+
+    transition:.4s;
+
+}
+
+.project:hover{
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(200,240,0,.3);
+
+}
+
+.project-number{
+
+    position:absolute;
+
+    top:25px;
+    right:25px;
+
+    font-family:"Space Grotesk";
+
+    color:#475269;
+
+}
+
+.project small{
+
+    color:var(--lime);
+
+    letter-spacing:2px;
+
+    font-size:10px;
+
+}
+
+.project h3{
+
+    font-family:"Space Grotesk";
+
+    font-size:25px;
+
+    margin:
+        10px 0;
+
+}
+
+.project p{
+
+    color:#8b96aa;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+/* =========================================================
+   GLOBAL LOCATIONS
+========================================================= */
+
+.locations{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:55px;
+
+}
+
+.location{
+
+    padding:35px;
+
+    min-height:220px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+}
+
+.location:hover{
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(0,217,255,.3);
+
+}
+
+.location span{
+
+    color:var(--cyan);
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+}
+
+.location h3{
+
+    font-family:"Space Grotesk";
+
+    font-size:30px;
+
+    margin:
+        12px 0;
+
+}
+
+.location p{
+
+    color:#8995a9;
+
+    font-size:13px;
+
+}
+
+/* =========================================================
+   COMMUNICATION CENTER
+========================================================= */
+
+.communication{
+
+    position:relative;
+
+}
+
+.communication-container{
+
+    display:grid;
+
+    grid-template-columns:
+        .75fr
+        1.25fr;
+
+    gap:25px;
+
+    margin-top:55px;
+
+}
+
+/* CONTACT CARDS */
+
+.contact-options{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:13px;
+
+}
+
+.contact-option{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:19px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:18px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    transition:.35s;
+
+}
+
+.contact-option:hover{
+
+    transform:
+        translateX(7px);
+
+    border-color:
+        rgba(0,217,255,.4);
+
+    background:
+        rgba(0,217,255,.06);
+
+}
+
+.contact-icon{
+
+    width:45px;
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:
+        rgba(0,217,255,.08);
+
+    font-size:20px;
+
+}
+
+.contact-option strong{
+
+    display:block;
+
+    font-size:13px;
+
+}
+
+.contact-option small{
+
+    display:block;
+
+    color:#79869c;
+
+    margin-top:4px;
+
+}
+
+/* CHAT */
+
+.chat-box{
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:
+        rgba(255,255,255,.035);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+.chat-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:20px 22px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(255,255,255,.035);
+
+}
+
+.chat-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.chat-brand img{
+
+    width:42px;
+    height:42px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+}
+
+.online{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    display:inline-block;
+
+    background:var(--lime);
+
+    box-shadow:
+        0 0 10px
+        var(--lime);
+
+    margin-right:6px;
+
+}
+
+.chat-status{
+
+    color:#7e8b9f;
+
+    font-size:11px;
+
+}
+
+.chat-body{
+
+    min-height:330px;
+
+    max-height:420px;
+
+    overflow-y:auto;
+
+    padding:25px;
+
+}
+
+.message{
+
+    max-width:82%;
+
+    padding:13px 16px;
+
+    border-radius:17px;
+
+    margin-bottom:14px;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+.message-company{
+
+    background:
+        rgba(0,217,255,.07);
+
+    border:
+        1px solid
+        rgba(0,217,255,.12);
+
+    border-bottom-left-radius:5px;
+
+}
+
+.message-user{
+
+    margin-left:auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1269c9,
+            #4265dc
+        );
+
+    border-bottom-right-radius:5px;
+
+}
+
+.quick-actions{
+
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin-top:15px;
+
+}
+
+.quick-btn{
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:#aeb7c8;
+
+    padding:
+        9px 12px;
+
+    border-radius:50px;
+
+    font-size:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.quick-btn:hover{
+
+    color:white;
+
+    border-color:
+        var(--cyan);
+
+}
+
+.chat-form{
+
+    padding:15px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.chat-input{
+
+    flex:1;
+
+    padding:
+        14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    outline:none;
+
+    background:
+        rgba(0,0,0,.2);
+
+    color:white;
+
+    font-family:inherit;
+
+}
+
+.chat-send{
+
+    width:48px;
+
+    border:0;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--cyan),
+            var(--blue)
+        );
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-panel{
+
+    padding:35px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:27px;
+
+    background:
+        rgba(255,255,255,.035);
+
+}
+
+.form-panel h3{
+
+    font-family:"Space Grotesk";
+
+    font-size:25px;
+
+    margin-bottom:8px;
+
+}
+
+.form-panel > p{
+
+    color:#818da2;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
+
+}
+
+.form{
+
+    display:grid;
+
+    gap:13px;
+
+}
+
+.form input,
+.form select,
+.form textarea{
+
+    width:100%;
+
+    padding:15px 16px;
+
+    color:white;
+
+    outline:none;
+
+    background:
+        rgba(0,0,0,.2);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    font-family:inherit;
+
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus{
+
+    border-color:
+        rgba(0,217,255,.5);
+
+    box-shadow:
+        0 0 25px
+        rgba(0,217,255,.06);
+
+}
+
+.form textarea{
+
+    min-height:130px;
+
+    resize:vertical;
+
+}
+
+.form select option{
+
+    background:#10052c;
+
+}
+
+.form button{
+
+    border:0;
+
+}
+
+.form-note{
+
+    color:#606d83;
+
+    font-size:10px;
+
+    line-height:1.5;
+
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+
+    text-align:center;
+
+    padding:
+        140px 7%;
+
+}
+
+.cta h2{
+
+    font-family:"Space Grotesk";
+
+    font-size:
+        clamp(
+            42px,
+            6vw,
+            75px
+        );
+
+    line-height:1;
+
+    letter-spacing:-4px;
+
+    max-width:950px;
+
+    margin:auto;
+
+}
+
+.cta p{
+
+    max-width:650px;
+
+    color:#8b96a9;
+
+    line-height:1.8;
+
+    margin:
+        25px auto 30px;
+
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    padding:
+        45px 7%;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.footer-logo{
+
+    width:145px;
+
+}
+
+.footer-logo img{
+
+    width:100%;
+
+}
+
+footer p{
+
+    color:#626e83;
+
+    font-size:11px;
+
+}
+
+.footer-links{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.footer-links a{
+
+    color:#7d899e;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+}
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:
+        translateY(45px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s ease;
+
+}
+
+.reveal.active{
+
+    opacity:1;
+
+    transform:
+        translateY(0);
+
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+
+    position:fixed;
+
+    bottom:25px;
+
+    right:25px;
+
+    z-index:5000;
+
+    padding:
+        14px 18px;
+
+    border:
+        1px solid
+        rgba(0,217,255,.25);
+
+    background:
+        rgba(10,3,30,.95);
+
+    backdrop-filter:
+        blur(15px);
+
+    border-radius:14px;
+
+    color:white;
+
+    font-size:12px;
+
+    transform:
+        translateY(120px);
+
+    opacity:0;
+
+    transition:.4s;
+
+}
+
+.toast.show{
+
+    transform:
+        translateY(0);
+
+    opacity:1;
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px){
+
+    nav{
+
+        display:none;
+
+        position:absolute;
+
+        left:0;
+        right:0;
+
+        top:82px;
+
+        padding:25px;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        background:
+            rgba(8,0,29,.98);
+
+        border-bottom:
+            1px solid
+            var(--border);
+
+    }
+
+    nav.show{
+
+        display:flex;
+
+    }
+
+    .menu{
+
+        display:block;
+
+    }
+
+    .header-contact{
+
+        display:none;
+
+    }
+
+    .hero{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .hero-visual{
+
+        min-height:420px;
+
+    }
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .cards{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .projects{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .locations{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .communication-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    header{
+
+        height:70px;
+
+        padding:
+            0 5%;
+
+    }
+
+    nav{
+
+        top:70px;
+
+    }
+
+    .logo{
+
+        width:125px;
+
+    }
+
+    section{
+
+        padding:
+            85px 5%;
+
+    }
+
+    .hero{
+
+        padding:
+            120px 5%
+            70px;
+
+    }
+
+    .hero h1{
+
+        font-size:48px;
+
+        letter-spacing:-3px;
+
+    }
+
+    .hero-description{
+
+        font-size:15px;
+
+    }
+
+    .stats,
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .orbit{
+
+        width:290px;
+        height:290px;
+
+    }
+
+    .center-logo{
+
+        width:135px;
+        height:135px;
+
+    }
+
+    .center-logo img{
+
+        width:105px;
+
+    }
+
+    .orbit-node{
+
+        width:62px;
+        height:62px;
+
+        font-size:8px;
+
+    }
+
+    .node1{
+        top:-15px;
+    }
+
+    .node2{
+        right:-15px;
+    }
+
+    .node3{
+        bottom:-15px;
+    }
+
+    .node4{
+        left:-15px;
+    }
+
+    .communication-container{
+
+        gap:18px;
+
+    }
+
+    .form-panel{
+
+        padding:24px;
+
+    }
+
+    .chat-body{
+
+        min-height:280px;
+
+    }
+
+    footer{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        scroll-behavior:auto !important;
+
+        transition-duration:.01ms !important;
+
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-logo">
+        <img
+            src="afrinova-logo.png"
+            alt="AFRINOVA Laboratory"
+        >
+    </div>
+
+    <div class="loader-text">
+        Digital Transformation Laboratory
+    </div>
+
+    <div class="loader-bar">
+        <span></span>
+    </div>
+
+</div>
+
+<!-- CURSOR -->
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+
+<!-- PARTICLES -->
+
+<div id="particles"></div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <a href="#home" class="logo">
+
+        <img
+            src="afrinova-logo.png"
+            alt="AFRINOVA Laboratory"
+        >
+
+    </a>
+
+    <nav id="nav">
+
+        <a href="#about">Mission</a>
+
+        <a href="#expertise">Expertise</a>
+
+        <a href="#initiatives">Initiatives</a>
+
+        <a href="#global">Présence</a>
+
+        <a href="#communication">Contact</a>
+
+    </nav>
+
+    <a
+        href="#communication"
+        class="header-contact"
+    >
+        💬 Parler à AFRINOVA
+    </a>
+
+    <div
+        class="menu"
+        id="menu"
+    >
+        ☰
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="reveal">
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            Laboratoire international de transformation digitale
+
+        </div>
+
+
+        <h1>
+
+            Transformer
+
+            <span class="gradient-text">
+                l'innovation
+            </span>
+
+            en impact.
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            AFRINOVA Laboratory connecte la recherche,
+            la technologie, la formation et l'innovation
+            pour accompagner les transformations numériques
+            en Afrique, en Europe et au-delà.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#about"
+                class="btn btn-main"
+            >
+                Découvrir AFRINOVA →
+            </a>
+
+            <a
+                href="#communication"
+                class="btn btn-outline"
+            >
+                💬 Nous contacter
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual reveal">
+
+        <div class="orbit">
+
+            <div class="orbit-node node1">
+                RECHERCHE
+            </div>
+
+            <div class="orbit-node node2">
+                TECHNOLOGIE
+            </div>
+
+            <div class="orbit-node node3">
+                FORMATION
+            </div>
+
+            <div class="orbit-node node4">
+                IMPACT
+            </div>
+
+            <div class="orbit-node node5"></div>
+
+
+            <div class="center-logo">
+
+                <img
+                    src="afrinova-logo.png"
+                    alt="AFRINOVA"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MARQUEE
+===================================================== -->
+
+<div class="marquee">
+
+    <div class="marquee-track">
+
+        <span>
+            <b>AFRINOVA</b> · RESEARCH
+        </span>
+
+        <span>
+            DIGITAL TRANSFORMATION
+        </span>
+
+        <span>
+            TECHNOLOGY TRANSFER
+        </span>
+
+        <span>
+            DIGITAL GOVERNANCE
+        </span>
+
+        <span>
+            TRAINING
+        </span>
+
+        <span>
+            INCUBATION
+        </span>
+
+        <span>
+            <b>AFRINOVA</b> · RESEARCH
+        </span>
+
+        <span>
+            DIGITAL TRANSFORMATION
+        </span>
+
+        <span>
+            TECHNOLOGY TRANSFER
+        </span>
+
+        <span>
+            DIGITAL GOVERNANCE
+        </span>
+
+        <span>
+            TRAINING
+        </span>
+
+        <span>
+            INCUBATION
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            01 — Notre mission
+        </div>
+
+        <h2 class="section-title">
+
+            Le savoir devient puissant
+            lorsqu'il devient utile.
+
+        </h2>
+
+        <p class="section-description">
+
+            AFRINOVA est un laboratoire collaboratif
+            dédié à la transformation digitale.
+            Notre approche rapproche la recherche
+            scientifique des besoins réels des organisations,
+            des institutions et des territoires.
+
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat reveal">
+
+            <strong
+                class="counter"
+                data-target="3"
+            >
+                0
+            </strong>
+
+            <span>
+                Continents connectés
+            </span>
+
+        </div>
+
+
+        <div class="stat reveal">
+
+            <strong
+                class="counter"
+                data-target="4"
+            >
+                0
+            </strong>
+
+            <span>
+                Axes d'intervention
+            </span>
+
+        </div>
+
+
+        <div class="stat reveal">
+
+            <strong>
+                360°
+            </strong>
+
+            <span>
+                Approche de transformation
+            </span>
+
+        </div>
+
+
+        <div class="stat reveal">
+
+            <strong>
+                ∞
+            </strong>
+
+            <span>
+                Potentiel d'innovation
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXPERTISE
+===================================================== -->
+
+<section id="expertise">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            02 — Expertise
+        </div>
+
+        <h2 class="section-title">
+
+            Quatre leviers pour
+            accélérer la transformation.
+
+        </h2>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <article class="card reveal">
+
+            <div class="card-icon">
+                ⌬
+            </div>
+
+            <h3>
+                Recherche appliquée
+            </h3>
+
+            <p>
+
+                Transformer les problématiques
+                réelles en connaissances, études
+                et solutions directement exploitables.
+
+            </p>
+
+        </article>
+
+
+        <article class="card reveal">
+
+            <div class="card-icon">
+                ◈
+            </div>
+
+            <h3>
+                Transfert technologique
+            </h3>
+
+            <p>
+
+                Faciliter la circulation des technologies,
+                des compétences et des méthodes
+                entre différents écosystèmes.
+
+            </p>
+
+        </article>
+
+
+        <article class="card reveal">
+
+            <div class="card-icon">
+                ✦
+            </div>
+
+            <h3>
+                Formation spécialisée
+            </h3>
+
+            <p>
+
+                Développer les compétences numériques
+                nécessaires aux professionnels,
+                institutions et organisations.
+
+            </p>
+
+        </article>
+
+
+        <article class="card reveal">
+
+            <div class="card-icon">
+                ↗
+            </div>
+
+            <h3>
+                Incubation & support
+            </h3>
+
+            <p>
+
+                Accompagner les initiatives innovantes
+                et les projets à fort potentiel
+                vers un impact durable.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INITIATIVES
+===================================================== -->
+
+<section id="initiatives">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            03 — Initiatives
+        </div>
+
+        <h2 class="section-title">
+
+            Construire les solutions
+            numériques de demain.
+
+        </h2>
+
+        <p class="section-description">
+
+            AFRINOVA intervient sur des problématiques
+            stratégiques liées à la transformation des
+            organisations et des économies.
+
+        </p>
+
+    </div>
+
+
+    <div class="projects">
+
+
+        <article class="project reveal">
+
+            <span class="project-number">
+                01
+            </span>
+
+            <small>
+                Gouvernance
+            </small>
+
+            <h3>
+                Administration publique digitale
+            </h3>
+
+            <p>
+
+                Accompagner la modernisation des services
+                publics et l'évolution des pratiques
+                administratives à l'ère numérique.
+
+            </p>
+
+        </article>
+
+
+        <article class="project reveal">
+
+            <span class="project-number">
+                02
+            </span>
+
+            <small>
+                Économie
+            </small>
+
+            <h3>
+                Transformation économique
+            </h3>
+
+            <p>
+
+                Comprendre et accompagner les nouvelles
+                dynamiques économiques créées par
+                la digitalisation.
+
+            </p>
+
+        </article>
+
+
+        <article class="project reveal">
+
+            <span class="project-number">
+                03
+            </span>
+
+            <small>
+                Innovation
+            </small>
+
+            <h3>
+                Écosystèmes numériques
+            </h3>
+
+            <p>
+
+                Connecter chercheurs, entrepreneurs,
+                institutions et acteurs technologiques
+                autour de projets à impact.
+
+            </p>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GLOBAL PRESENCE
+===================================================== -->
+
+<section id="global">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            04 — Présence internationale
+        </div>
+
+        <h2 class="section-title">
+
+            Plusieurs territoires.
+            Une seule vision.
+
+        </h2>
+
+    </div>
+
+
+    <div class="locations">
+
+
+        <article class="location reveal">
+
+            <span>
+                EUROPE · PORTUGAL
+            </span>
+
+            <h3>
+                Lisbonne
+            </h3>
+
+            <p>
+                Hub européen
+            </p>
+
+        </article>
+
+
+        <article class="location reveal">
+
+            <span>
+                AFRIQUE · CAMEROUN
+            </span>
+
+            <h3>
+                Yaoundé
+            </h3>
+
+            <p>
+                Hub africain
+            </p>
+
+        </article>
+
+
+        <article class="location reveal">
+
+            <span>
+                AMÉRIQUE DU NORD · CANADA
+            </span>
+
+            <h3>
+                Québec
+            </h3>
+
+            <p>
+                Hub nord-américain
+            </p>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMMUNICATION CENTER
+===================================================== -->
+
+<section
+    id="communication"
+    class="communication"
+>
+
+    <div class="reveal">
+
+        <div class="section-label">
+            05 — Communication
+        </div>
+
+        <h2 class="section-title">
+
+            Parlons de votre projet.
+
+        </h2>
+
+        <p class="section-description">
+
+            Une question, un projet de recherche,
+            une proposition de partenariat ou une
+            demande de formation ?
+            L'équipe AFRINOVA est disponible.
+
+        </p>
+
+    </div>
+
+
+    <div class="communication-container">
+
+
+        <!-- CONTACT OPTIONS -->
+
+        <div class="contact-options reveal">
+
+
+            <a
+                class="contact-option"
+                href="mailto:afrinovalaboratory@gmail.com"
+            >
+
+                <div class="contact-icon">
+                    ✉️
+                </div>
+
+                <div>
+
+                    <strong>
+                        Email
+                    </strong>
+
+                    <small>
+                        afrinovalaboratory@gmail.com
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+                class="contact-option"
+                href="https://wa.me/351915341842"
+                target="_blank"
+            >
+
+                <div class="contact-icon">
+                    💬
+                </div>
+
+                <div>
+
+                    <strong>
+                        WhatsApp
+                    </strong>
+
+                    <small>
+                        Démarrer une conversation
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+                class="contact-option"
+                href="tel:+351915341842"
+            >
+
+                <div class="contact-icon">
+                    ☎️
+                </div>
+
+                <div>
+
+                    <strong>
+                        Téléphone
+                    </strong>
+
+                    <small>
+                        +351 915 341 842
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- CHAT -->
+
+            <div class="chat-box">
+
+
+                <div class="chat-header">
+
+                    <div class="chat-brand">
+
+                        <img
+                            src="afrinova-logo.png"
+                            alt="AFRINOVA"
+                        >
+
+                        <div>
+
+                            <strong>
+                                AFRINOVA
+                            </strong>
+
+                            <div class="chat-status">
+
+                                <span class="online"></span>
+
+                                En ligne
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="chat-body"
+                    id="chatBody"
+                >
+
+                    <div class="message message-company">
+
+                        Bonjour 👋
+
+                        <br><br>
+
+                        Bienvenue sur l'espace
+                        de communication AFRINOVA.
+
+                        Comment pouvons-nous
+                        vous accompagner ?
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <button
+                            class="quick-btn"
+                            data-message="Je souhaite devenir partenaire."
+                        >
+                            🤝 Partenariat
+                        </button>
+
+                        <button
+                            class="quick-btn"
+                            data-message="Je souhaite en savoir plus sur vos formations."
+                        >
+                            🎓 Formation
+                        </button>
+
+                        <button
+                            class="quick-btn"
+                            data-message="Je souhaite proposer un projet de recherche."
+                        >
+                            🔬 Recherche
+                        </button>
+
+                        <button
+                            class="quick-btn"
+                            data-message="Je souhaite discuter d'un projet."
+                        >
+                            🚀 Projet
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chat-form">
+
+                    <input
+                        type="text"
+                        id="chatInput"
+                        class="chat-input"
+                        placeholder="Écrire un message..."
+                    >
+
+                    <button
+                        class="chat-send"
+                        id="chatSend"
+                    >
+                        ➤
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div class="form-panel reveal">
+
+            <h3>
+                Envoyer une demande
+            </h3>
+
+            <p>
+
+                Remplissez ce formulaire.
+                Votre application email sera ouverte
+                avec votre message déjà préparé.
+
+            </p>
+
+
+            <form
+                class="form"
+                id="contactForm"
+            >
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Nom complet"
+                    required
+                >
+
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Adresse email"
+                    required
+                >
+
+
+                <input
+                    type="text"
+                    id="organization"
+                    placeholder="Organisation / Institution"
+                >
+
+
+                <select
+                    id="subjectType"
+                    required
+                >
+
+                    <option value="">
+                        Objet de votre demande
+                    </option>
+
+                    <option>
+                        Partenariat
+                    </option>
+
+                    <option>
+                        Recherche
+                    </option>
+
+                    <option>
+                        Formation
+                    </option>
+
+                    <option>
+                        Incubation
+                    </option>
+
+                    <option>
+                        Technologie
+                    </option>
+
+                    <option>
+                        Autre
+                    </option>
+
+                </select>
+
+
+                <textarea
+                    id="message"
+                    placeholder="Votre message..."
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-main"
+                >
+
+                    Envoyer la demande →
+
+                </button>
+
+
+                <div class="form-note">
+
+                    Les informations saisies servent
+                    uniquement à traiter votre demande
+                    de communication.
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            AFRINOVA LABORATORY
+        </div>
+
+        <h2>
+
+            L'innovation n'est pas
+            une destination.
+
+            <span class="gradient-text">
+                C'est un mouvement.
+            </span>
+
+        </h2>
+
+        <p>
+
+            Rejoignez un écosystème qui rapproche
+            les idées, les talents, la technologie
+            et l'impact.
+
+        </p>
+
+        <a
+            href="#communication"
+            class="btn btn-main"
+        >
+            Commencer une conversation →
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+
+        <img
+            src="afrinova-logo.png"
+            alt="AFRINOVA"
+        >
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <a href="#about">
+            Mission
+        </a>
+
+        <a href="#expertise">
+            Expertise
+        </a>
+
+        <a href="#initiatives">
+            Initiatives
+        </a>
+
+        <a href="#communication">
+            Contact
+        </a>
+
+    </div>
+
+
+    <p>
+        © 2026 AFRINOVA Laboratory.
+        Tous droits réservés.
+    </p>
+
+</footer>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Message préparé avec succès.
+</div>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load",function(){
+
+    setTimeout(function(){
+
+        document
+            .getElementById("loader")
+            .classList.add("hide");
+
+    },1200);
+
+});
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+const particlesContainer =
+    document.getElementById("particles");
+
+for(let i=0;i<35;i++){
+
+    const particle =
+        document.createElement("div");
+
+    particle.className =
+        "particle";
+
+    particle.style.left =
+        Math.random()*100+"vw";
+
+    particle.style.animationDuration =
+        (8+Math.random()*15)+"s";
+
+    particle.style.animationDelay =
+        Math.random()*10+"s";
+
+    particle.style.opacity =
+        .2+Math.random()*.6;
+
+    particlesContainer.appendChild(
+        particle
+    );
+
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+const menu =
+    document.getElementById("menu");
+
+const nav =
+    document.getElementById("nav");
+
+menu.addEventListener(
+    "click",
+    function(){
+
+        nav.classList.toggle("show");
+
+    }
+);
+
+document
+    .querySelectorAll("nav a")
+    .forEach(function(link){
+
+        link.addEventListener(
+            "click",
+            function(){
+
+                nav.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   CURSOR GLOW
+========================================================= */
+
+const cursorGlow =
+    document.getElementById(
+        "cursorGlow"
+    );
+
+document.addEventListener(
+    "mousemove",
+    function(e){
+
+        cursorGlow.style.left =
+            e.clientX+"px";
+
+        cursorGlow.style.top =
+            e.clientY+"px";
+
+    }
+);
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+
+        function(entries){
+
+            entries.forEach(
+                function(entry){
+
+                    if(entry.isIntersecting){
+
+                        entry.target.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(function(element){
+
+        revealObserver.observe(
+            element
+        );
+
+    });
+
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+const counters =
+    document.querySelectorAll(
+        ".counter"
+    );
+
+const counterObserver =
+    new IntersectionObserver(
+
+        function(entries){
+
+            entries.forEach(
+                function(entry){
+
+                    if(
+                        entry.isIntersecting
+                        &&
+                        !entry.target.dataset.done
+                    ){
+
+                        entry.target.dataset.done =
+                            "true";
+
+                        const target =
+                            Number(
+                                entry.target.dataset.target
+                            );
+
+                        let current = 0;
+
+                        const increment =
+                            target/40;
+
+                        const timer =
+                            setInterval(
+                                function(){
+
+                                    current +=
+                                        increment;
+
+                                    if(
+                                        current >= target
+                                    ){
+
+                                        current =
+                                            target;
+
+                                        clearInterval(
+                                            timer
+                                        );
+
+                                    }
+
+                                    entry.target.textContent =
+                                        Math.floor(
+                                            current
+                                        );
+
+                                },
+                                30
+                            );
+
+                    }
+
+                }
+            );
+
+        }
+
+    );
+
+
+counters.forEach(function(counter){
+
+    counterObserver.observe(
+        counter
+    );
+
+});
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    setTimeout(
+        function(){
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+/* =========================================================
+   CHAT SYSTEM
+========================================================= */
+
+const chatInput =
+    document.getElementById(
+        "chatInput"
+    );
+
+const chatSend =
+    document.getElementById(
+        "chatSend"
+    );
+
+const chatBody =
+    document.getElementById(
+        "chatBody"
+    );
+
+
+function addUserMessage(text){
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+    message.className =
+        "message message-user";
+
+    message.textContent =
+        text;
+
+    chatBody.appendChild(
+        message
+    );
+
+    chatBody.scrollTop =
+        chatBody.scrollHeight;
+
+}
+
+
+function addCompanyMessage(text){
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+    message.className =
+        "message message-company";
+
+    message.innerHTML =
+        text;
+
+    chatBody.appendChild(
+        message
+    );
+
+    chatBody.scrollTop =
+        chatBody.scrollHeight;
+
+}
+
+
+function sendChatMessage(){
+
+    const text =
+        chatInput.value.trim();
+
+    if(!text){
+
+        return;
+
+    }
+
+    addUserMessage(text);
+
+    chatInput.value =
+        "";
+
+    setTimeout(
+        function(){
+
+            addCompanyMessage(
+                "Merci pour votre message. 👋<br><br>" +
+                "Pour échanger directement avec l'équipe AFRINOVA, " +
+                "vous pouvez poursuivre la conversation sur " +
+                "<strong>WhatsApp</strong> ou envoyer votre demande " +
+                "par email."
+            );
+
+        },
+        700
+    );
+
+}
+
+
+chatSend.addEventListener(
+    "click",
+    sendChatMessage
+);
+
+
+chatInput.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            sendChatMessage();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   QUICK CHAT BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(".quick-btn")
+    .forEach(function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const message =
+                    button.dataset.message;
+
+                addUserMessage(
+                    message
+                );
+
+                setTimeout(
+                    function(){
+
+                        addCompanyMessage(
+                            "Très bien. 👌<br><br>" +
+                            "Votre demande peut être transmise " +
+                            "directement à AFRINOVA. " +
+                            "Utilisez WhatsApp ou le formulaire " +
+                            "de contact pour continuer."
+                        );
+
+                    },
+                    600
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   CONTACT FORM → EMAIL
+========================================================= */
+
+const contactForm =
+    document.getElementById(
+        "contactForm"
+    );
+
+
+contactForm.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+
+        const name =
+            document.getElementById(
+                "name"
+            ).value;
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value;
+
+        const organization =
+            document.getElementById(
+                "organization"
+            ).value;
+
+        const type =
+            document.getElementById(
+                "subjectType"
+            ).value;
+
+        const message =
+            document.getElementById(
+                "message"
+            ).value;
+
+
+        const subject =
+            encodeURIComponent(
+                "Nouvelle demande AFRINOVA — "
+                + type
+            );
+
+
+        const body =
+            encodeURIComponent(
+
+`Bonjour AFRINOVA,
+
+Nom : ${name}
+
+Email : ${email}
+
+Organisation :
+${organization}
+
+Objet :
+${type}
+
+Message :
+${message}
+
+--------------------------------
+Message envoyé depuis la plateforme AFRINOVA.
+`
+
+            );
+
+
+        window.location.href =
+            "mailto:afrinovalaboratory@gmail.com" +
+            "?subject=" +
+            subject +
+            "&body=" +
+            body;
+
+
+        showToast(
+            "Votre demande est prête à être envoyée."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   BUTTON MICRO INTERACTION
+========================================================= */
+
+document
+    .querySelectorAll(".btn")
+    .forEach(function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                this.style.transform =
+                    "scale(.97)";
+
+                setTimeout(
+                    function(){
+
+                        button.style.transform =
+                            "";
+
+                    },
+                    120
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   PARALLAX HERO
+========================================================= */
+
+document.addEventListener(
+    "mousemove",
+    function(e){
+
+        const orbit =
+            document.querySelector(
+                ".orbit"
+            );
+
+        if(!orbit){
+
+            return;
+
+        }
+
+        const x =
+            (window.innerWidth/2-e.clientX)
+            /40;
+
+        const y =
+            (window.innerHeight/2-e.clientY)
+            /40;
+
+        orbit.style.marginLeft =
+            x+"px";
+
+        orbit.style.marginTop =
+            y+"px";
+
+    }
+);
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+const sections =
+    document.querySelectorAll(
+        "section[id]"
+    );
+
+const navLinks =
+    document.querySelectorAll(
+        "nav a"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        let current = "";
+
+        sections.forEach(
+            function(section){
+
+                const sectionTop =
+                    section.offsetTop - 180;
+
+                if(
+                    window.scrollY >=
+                    sectionTop
+                ){
+
+                    current =
+                        section.getAttribute(
+                            "id"
+                        );
+
+                }
+
+            }
+        );
+
+        navLinks.forEach(
+            function(link){
+
+                link.style.color =
+                    "#aeb5c8";
+
+                if(
+                    link.getAttribute(
+                        "href"
+                    ) ===
+                    "#"+current
+                ){
+
+                    link.style.color =
+                        "#ffffff";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
