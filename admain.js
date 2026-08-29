@@ -1,673 +1,1071 @@
-/* =====================================
-   AFRINOVA - ADMINISTRATION
-===================================== */
+/* =====================================================
+   AFRINOVA — ADMIN.JS
+   ===================================================== */
+
+"use strict";
 
 
-/* IDENTIFIANTS DE DÉMONSTRATION */
+/* =====================================================
+   IDENTIFIANTS
+   ===================================================== */
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "afrinova2026";
 
-
-/* ================================
-   CONNEXION
-================================ */
-
-function loginAdmin() {
-
-  const username =
-    document.getElementById("adminUsername").value.trim();
-
-  const password =
-    document.getElementById("adminPassword").value;
+const STORAGE_KEY = "afrinovaPublications";
 
 
-  if (
-    username === ADMIN_USERNAME &&
-    password === ADMIN_PASSWORD
-  ) {
+/* =====================================================
+   ÉLÉMENTS
+   ===================================================== */
 
-    sessionStorage.setItem(
-      "afrinovaAdmin",
-      "true"
+let loginPage;
+let dashboard;
+let username;
+let password;
+let loginButton;
+let logoutButton;
+
+let publicationForm;
+let editId;
+let title;
+let category;
+let image;
+let preview;
+let content;
+let postsList;
+
+let formTitle;
+let publishButton;
+let cancelButton;
+
+let loginMessage;
+let publicationMessage;
+
+
+/* =====================================================
+   DÉMARRAGE
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    console.log("AFRINOVA ADMIN : JavaScript chargé.");
+
+    loginPage =
+        document.getElementById("loginPage");
+
+    dashboard =
+        document.getElementById("dashboard");
+
+    username =
+        document.getElementById("username");
+
+    password =
+        document.getElementById("password");
+
+    loginButton =
+        document.getElementById("loginButton");
+
+    logoutButton =
+        document.getElementById("logoutButton");
+
+    publicationForm =
+        document.getElementById("publicationForm");
+
+    editId =
+        document.getElementById("editId");
+
+    title =
+        document.getElementById("title");
+
+    category =
+        document.getElementById("category");
+
+    image =
+        document.getElementById("image");
+
+    preview =
+        document.getElementById("preview");
+
+    content =
+        document.getElementById("content");
+
+    postsList =
+        document.getElementById("postsList");
+
+    formTitle =
+        document.getElementById("formTitle");
+
+    publishButton =
+        document.getElementById("publishButton");
+
+    cancelButton =
+        document.getElementById("cancelButton");
+
+    loginMessage =
+        document.getElementById("loginMessage");
+
+    publicationMessage =
+        document.getElementById("publicationMessage");
+
+
+    /* Bouton connexion */
+
+    loginButton.addEventListener(
+        "click",
+        loginAdmin
     );
 
-    showDashboard();
 
-  } else {
+    /* Touche Entrée */
 
-    const error =
-      document.getElementById("loginError");
+    password.addEventListener(
+        "keydown",
+        function(event){
 
-    error.style.display = "block";
+            if(event.key === "Enter"){
+                loginAdmin();
+            }
 
-  }
-
-}
-
-
-/* ================================
-   AFFICHER DASHBOARD
-================================ */
-
-function showDashboard() {
-
-  document.getElementById("loginScreen").style.display =
-    "none";
-
-  document.getElementById("adminDashboard").style.display =
-    "block";
-
-  loadAdminPosts();
-
-}
+        }
+    );
 
 
-/* ================================
-   DÉCONNEXION
-================================ */
+    username.addEventListener(
+        "keydown",
+        function(event){
 
-function logoutAdmin() {
+            if(event.key === "Enter"){
+                loginAdmin();
+            }
 
-  sessionStorage.removeItem(
-    "afrinovaAdmin"
-  );
-
-  location.reload();
-
-}
+        }
+    );
 
 
-/* ================================
-   VÉRIFICATION
-================================ */
+    /* Déconnexion */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function() {
+    logoutButton.addEventListener(
+        "click",
+        logoutAdmin
+    );
 
-    if (
-      sessionStorage.getItem("afrinovaAdmin") === "true"
-    ) {
 
-      showDashboard();
+    /* Formulaire */
 
-    }
+    publicationForm.addEventListener(
+        "submit",
+        savePublication
+    );
 
-    const fileInput =
-      document.getElementById("postImageFile");
 
-    if (fileInput) {
+    /* Annuler */
 
-      fileInput.addEventListener(
+    cancelButton.addEventListener(
+        "click",
+        resetForm
+    );
+
+
+    /* Image */
+
+    image.addEventListener(
         "change",
         previewImage
-      );
+    );
+
+
+    /* Vérifier connexion */
+
+    if(
+        sessionStorage.getItem(
+            "afrinovaAdminConnected"
+        ) === "true"
+    ){
+
+        showDashboard();
+
+    }else{
+
+        showLogin();
 
     }
 
-  }
-);
+});
 
 
-/* ================================
-   PUBLICATIONS
-================================ */
+/* =====================================================
+   CONNEXION
+   ===================================================== */
 
-function getPosts() {
+function loginAdmin(){
 
-  try {
+    const user =
+        username.value.trim();
 
-    const data =
-      localStorage.getItem(
-        "afrinovaPublications"
-      );
+    const pass =
+        password.value;
 
-    return data ? JSON.parse(data) : [];
 
-  } catch (error) {
+    if(
+        user === ADMIN_USERNAME &&
+        pass === ADMIN_PASSWORD
+    ){
 
-    return [];
-
-  }
-
-}
-
-
-function savePosts(posts) {
-
-  localStorage.setItem(
-    "afrinovaPublications",
-    JSON.stringify(posts)
-  );
-
-}
-
-
-/* ================================
-   APERÇU IMAGE
-================================ */
-
-function previewImage(event) {
-
-  const file =
-    event.target.files[0];
-
-  const preview =
-    document.getElementById("imagePreview");
-
-
-  if (!file) {
-
-    preview.style.display = "none";
-
-    return;
-
-  }
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    function(e) {
-
-      preview.src =
-        e.target.result;
-
-      preview.style.display =
-        "block";
-
-    };
-
-
-  reader.readAsDataURL(file);
-
-}
-
-
-/* ================================
-   CRÉER / MODIFIER
-================================ */
-
-function savePublication(event) {
-
-  event.preventDefault();
-
-
-  const title =
-    document.getElementById("postTitle").value.trim();
-
-  const category =
-    document.getElementById("postCategory").value;
-
-  const content =
-    document.getElementById("postContent").value.trim();
-
-  const editId =
-    document.getElementById("editId").value;
-
-
-  const file =
-    document.getElementById("postImageFile").files[0];
-
-
-  if (!title || !content) {
-
-    alert(
-      "Veuillez remplir le titre et le contenu."
-    );
-
-    return;
-
-  }
-
-
-  const posts =
-    getPosts();
-
-
-  /* MODIFICATION */
-
-  if (editId) {
-
-    const index =
-      posts.findIndex(function(post) {
-
-        return String(post.id) === String(editId);
-
-      });
-
-
-    if (index !== -1) {
-
-      posts[index].title =
-        title;
-
-      posts[index].category =
-        category;
-
-      posts[index].content =
-        content;
-
-
-      if (file) {
-
-        readImage(
-          file,
-          function(imageData) {
-
-            posts[index].image =
-              imageData;
-
-            savePosts(posts);
-
-            finishSave();
-
-          }
+        sessionStorage.setItem(
+            "afrinovaAdminConnected",
+            "true"
         );
 
-      } else {
+        hideLoginMessage();
 
-        savePosts(posts);
+        username.value = "";
+        password.value = "";
 
-        finishSave();
+        showDashboard();
 
-      }
+    }else{
+
+        showLoginMessage(
+            "Identifiant ou mot de passe incorrect."
+        );
+
+        password.value = "";
+
+        password.focus();
 
     }
 
-    return;
-
-  }
+}
 
 
-  /* NOUVELLE PUBLICATION */
+/* =====================================================
+   AFFICHER CONNEXION
+   ===================================================== */
 
-  const newPost = {
+function showLogin(){
 
-    id:
-      Date.now(),
+    loginPage.style.display = "flex";
 
-    title:
-      title,
+    dashboard.style.display = "none";
 
-    category:
-      category,
-
-    content:
-      content,
-
-    image:
-      "plateforme.jpg",
-
-    date:
-      new Date().toISOString()
-
-  };
+}
 
 
-  if (file) {
+/* =====================================================
+   AFFICHER TABLEAU
+   ===================================================== */
 
-    readImage(
-      file,
-      function(imageData) {
+function showDashboard(){
 
-        newPost.image =
-          imageData;
+    loginPage.style.display = "none";
 
-        posts.push(newPost);
+    dashboard.style.display = "block";
 
-        savePosts(posts);
+    loadPosts();
 
-        finishSave();
+}
 
-      }
+
+/* =====================================================
+   DÉCONNEXION
+   ===================================================== */
+
+function logoutAdmin(){
+
+    sessionStorage.removeItem(
+        "afrinovaAdminConnected"
     );
 
-  } else {
-
-    posts.push(newPost);
-
-    savePosts(posts);
-
-    finishSave();
-
-  }
+    showLogin();
 
 }
 
 
-/* ================================
+/* =====================================================
+   MESSAGE CONNEXION
+   ===================================================== */
+
+function showLoginMessage(message){
+
+    loginMessage.textContent = message;
+
+    loginMessage.style.display = "block";
+
+}
+
+
+function hideLoginMessage(){
+
+    loginMessage.textContent = "";
+
+    loginMessage.style.display = "none";
+
+}
+
+
+/* =====================================================
+   MESSAGE PUBLICATION
+   ===================================================== */
+
+function showPublicationMessage(
+    message,
+    type
+){
+
+    publicationMessage.textContent =
+        message;
+
+    publicationMessage.className =
+        "message " + type;
+
+    publicationMessage.style.display =
+        "block";
+
+}
+
+
+function hidePublicationMessage(){
+
+    publicationMessage.textContent = "";
+
+    publicationMessage.style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   RÉCUPÉRER LES PUBLICATIONS
+   ===================================================== */
+
+function getPosts(){
+
+    try{
+
+        const data =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+        if(!data){
+            return [];
+        }
+
+        const posts =
+            JSON.parse(data);
+
+        if(!Array.isArray(posts)){
+            return [];
+        }
+
+        return posts;
+
+    }catch(error){
+
+        console.error(error);
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   SAUVEGARDER
+   ===================================================== */
+
+function savePosts(posts){
+
+    try{
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(posts)
+        );
+
+        return true;
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Impossible d'enregistrer la publication. " +
+            "L'image est peut-être trop lourde."
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   IMAGE
+   ===================================================== */
+
+function previewImage(){
+
+    const file =
+        image.files[0];
+
+    if(!file){
+
+        preview.style.display =
+            "none";
+
+        preview.src = "";
+
+        return;
+
+    }
+
+
+    if(
+        !file.type.startsWith("image/")
+    ){
+
+        alert(
+            "Veuillez choisir une image."
+        );
+
+        image.value = "";
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(event){
+
+            preview.src =
+                event.target.result;
+
+            preview.style.display =
+                "block";
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   ENREGISTRER PUBLICATION
+   ===================================================== */
+
+function savePublication(event){
+
+    event.preventDefault();
+
+
+    const postTitle =
+        title.value.trim();
+
+    const postCategory =
+        category.value;
+
+    const postContent =
+        content.value.trim();
+
+    const selectedFile =
+        image.files[0];
+
+
+    if(!postTitle){
+
+        showPublicationMessage(
+            "Veuillez entrer un titre.",
+            "error"
+        );
+
+        title.focus();
+
+        return;
+
+    }
+
+
+    if(!postContent){
+
+        showPublicationMessage(
+            "Veuillez écrire le contenu.",
+            "error"
+        );
+
+        content.focus();
+
+        return;
+
+    }
+
+
+    let posts =
+        getPosts();
+
+
+    /* MODIFICATION */
+
+    if(editId.value){
+
+        const index =
+            posts.findIndex(
+                function(post){
+
+                    return String(post.id) ===
+                        String(editId.value);
+
+                }
+            );
+
+
+        if(index === -1){
+
+            showPublicationMessage(
+                "Publication introuvable.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        posts[index].title =
+            postTitle;
+
+        posts[index].category =
+            postCategory;
+
+        posts[index].content =
+            postContent;
+
+        posts[index].updated =
+            new Date().toISOString();
+
+
+        if(selectedFile){
+
+            readImage(
+                selectedFile,
+                function(data){
+
+                    posts[index].image =
+                        data;
+
+                    finishSave(
+                        posts,
+                        "Publication modifiée avec succès."
+                    );
+
+                }
+            );
+
+        }else{
+
+            finishSave(
+                posts,
+                "Publication modifiée avec succès."
+            );
+
+        }
+
+
+        return;
+
+    }
+
+
+    /* NOUVELLE PUBLICATION */
+
+    const newPost = {
+
+        id:Date.now(),
+
+        title:postTitle,
+
+        category:postCategory,
+
+        content:postContent,
+
+        image:"plateforme.jpg",
+
+        date:new Date().toISOString()
+
+    };
+
+
+    if(selectedFile){
+
+        readImage(
+            selectedFile,
+            function(data){
+
+                newPost.image =
+                    data;
+
+                posts.unshift(
+                    newPost
+                );
+
+                finishSave(
+                    posts,
+                    "Publication publiée avec succès."
+                );
+
+            }
+        );
+
+    }else{
+
+        posts.unshift(
+            newPost
+        );
+
+        finishSave(
+            posts,
+            "Publication publiée avec succès."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    LECTURE IMAGE
-================================ */
+   ===================================================== */
 
-function readImage(file, callback) {
+function readImage(
+    file,
+    callback
+){
 
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    function(event) {
-
-      callback(
-        event.target.result
-      );
-
-    };
+    const maxSize =
+        4 * 1024 * 1024;
 
 
-  reader.onerror =
-    function() {
+    if(file.size > maxSize){
 
-      alert(
-        "Impossible de charger cette image."
-      );
+        showPublicationMessage(
+            "Image trop lourde. Utilisez une image de moins de 4 MB.",
+            "error"
+        );
 
-    };
+        return;
 
-
-  reader.readAsDataURL(file);
-
-}
+    }
 
 
-/* ================================
-   APRÈS SAUVEGARDE
-================================ */
-
-function finishSave() {
-
-  alert(
-    "Publication enregistrée avec succès."
-  );
-
-  resetForm();
-
-  loadAdminPosts();
-
-}
+    const reader =
+        new FileReader();
 
 
-/* ================================
-   AFFICHER LES PUBLICATIONS
-================================ */
+    reader.onload =
+        function(event){
 
-function loadAdminPosts() {
+            callback(
+                event.target.result
+            );
 
-  const container =
-    document.getElementById("adminPosts");
-
-
-  if (!container) {
-    return;
-  }
+        };
 
 
-  const posts =
-    getPosts();
+    reader.onerror =
+        function(){
+
+            showPublicationMessage(
+                "Impossible de lire l'image.",
+                "error"
+            );
+
+        };
 
 
-  if (posts.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty-admin">
-        Aucune publication pour le moment.
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  posts.sort(function(a, b) {
-
-    return new Date(b.date) -
-           new Date(a.date);
-
-  });
-
-
-  container.innerHTML = "";
-
-
-  posts.forEach(function(post) {
-
-    const article =
-      document.createElement("div");
-
-    article.className =
-      "admin-post";
-
-
-    article.innerHTML = `
-
-      <img
-        src="${post.image || "plateforme.jpg"}"
-        alt=""
-        onerror="this.src='plateforme.jpg'"
-      >
-
-      <div>
-
-        <h3>
-          ${escapeHTML(post.title)}
-        </h3>
-
-        <p>
-          ${escapeHTML(post.category)}
-          ·
-          ${formatDate(post.date)}
-        </p>
-
-      </div>
-
-      <div class="post-buttons">
-
-        <button
-          class="small-btn btn-secondary"
-          onclick="editPublication('${post.id}')"
-        >
-          Modifier
-        </button>
-
-        <button
-          class="small-btn btn-danger"
-          onclick="deletePublication('${post.id}')"
-        >
-          Supprimer
-        </button>
-
-      </div>
-
-    `;
-
-
-    container.appendChild(article);
-
-  });
+    reader.readAsDataURL(file);
 
 }
 
 
-/* ================================
+/* =====================================================
+   FIN SAUVEGARDE
+   ===================================================== */
+
+function finishSave(
+    posts,
+    message
+){
+
+    if(
+        savePosts(posts)
+    ){
+
+        showPublicationMessage(
+            message,
+            "success"
+        );
+
+        resetForm();
+
+        loadPosts();
+
+    }
+
+}
+
+
+/* =====================================================
+   AFFICHER PUBLICATIONS
+   ===================================================== */
+
+function loadPosts(){
+
+    const posts =
+        getPosts();
+
+
+    postsList.innerHTML = "";
+
+
+    if(posts.length === 0){
+
+        postsList.innerHTML = `
+
+            <div class="message success"
+                 style="display:block">
+
+                Aucune publication pour le moment.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    posts.forEach(
+        function(post){
+
+            const article =
+                document.createElement("article");
+
+            article.className =
+                "post";
+
+
+            const img =
+                document.createElement("img");
+
+            img.src =
+                post.image ||
+                "plateforme.jpg";
+
+            img.onerror =
+                function(){
+
+                    this.src =
+                        "plateforme.jpg";
+
+                };
+
+
+            const heading =
+                document.createElement("h3");
+
+            heading.textContent =
+                post.title;
+
+
+            const meta =
+                document.createElement("div");
+
+            meta.className =
+                "post-meta";
+
+            meta.textContent =
+                (post.category || "Actualité")
+                + " • "
+                + formatDate(post.date);
+
+
+            const text =
+                document.createElement("div");
+
+            text.className =
+                "post-content";
+
+            text.textContent =
+                post.content;
+
+
+            const actions =
+                document.createElement("div");
+
+            actions.className =
+                "actions";
+
+
+            const editButton =
+                document.createElement("button");
+
+            editButton.className =
+                "secondary";
+
+            editButton.textContent =
+                "Modifier";
+
+            editButton.type =
+                "button";
+
+            editButton.addEventListener(
+                "click",
+                function(){
+
+                    editPublication(
+                        post.id
+                    );
+
+                }
+            );
+
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.className =
+                "danger";
+
+            deleteButton.textContent =
+                "Supprimer";
+
+            deleteButton.type =
+                "button";
+
+            deleteButton.addEventListener(
+                "click",
+                function(){
+
+                    deletePublication(
+                        post.id
+                    );
+
+                }
+            );
+
+
+            actions.appendChild(
+                editButton
+            );
+
+            actions.appendChild(
+                deleteButton
+            );
+
+
+            article.appendChild(img);
+
+            article.appendChild(heading);
+
+            article.appendChild(meta);
+
+            article.appendChild(text);
+
+            article.appendChild(actions);
+
+
+            postsList.appendChild(
+                article
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
    MODIFIER
-================================ */
+   ===================================================== */
 
-function editPublication(id) {
+function editPublication(id){
 
-  const posts =
-    getPosts();
+    const posts =
+        getPosts();
 
 
-  const post =
-    posts.find(function(item) {
+    const post =
+        posts.find(
+            function(item){
 
-      return String(item.id) === String(id);
+                return String(item.id) ===
+                    String(id);
+
+            }
+        );
+
+
+    if(!post){
+
+        alert(
+            "Publication introuvable."
+        );
+
+        return;
+
+    }
+
+
+    editId.value =
+        post.id;
+
+    title.value =
+        post.title;
+
+    category.value =
+        post.category ||
+        "Actualité";
+
+    content.value =
+        post.content;
+
+
+    if(post.image){
+
+        preview.src =
+            post.image;
+
+        preview.style.display =
+            "block";
+
+    }
+
+
+    formTitle.textContent =
+        "Modifier la publication";
+
+    publishButton.textContent =
+        "Enregistrer les modifications";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
 
     });
 
-
-  if (!post) {
-    return;
-  }
+}
 
 
-  document.getElementById("editId").value =
-    post.id;
+/* =====================================================
+   SUPPRIMER
+   ===================================================== */
 
-  document.getElementById("postTitle").value =
-    post.title;
+function deletePublication(id){
 
-  document.getElementById("postCategory").value =
-    post.category;
-
-  document.getElementById("postContent").value =
-    post.content;
-
-
-  const preview =
-    document.getElementById("imagePreview");
+    const confirmation =
+        confirm(
+            "Voulez-vous vraiment supprimer cette publication ?"
+        );
 
 
-  if (post.image) {
+    if(!confirmation){
 
-    preview.src =
-      post.image;
+        return;
+
+    }
+
+
+    let posts =
+        getPosts();
+
+
+    posts =
+        posts.filter(
+            function(post){
+
+                return String(post.id) !==
+                    String(id);
+
+            }
+        );
+
+
+    if(
+        savePosts(posts)
+    ){
+
+        showPublicationMessage(
+            "Publication supprimée.",
+            "success"
+        );
+
+        loadPosts();
+
+    }
+
+}
+
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
+function resetForm(){
+
+    publicationForm.reset();
+
+    editId.value = "";
+
+    preview.src = "";
 
     preview.style.display =
-      "block";
+        "none";
 
-  }
+    formTitle.textContent =
+        "Nouvelle publication";
 
-
-  document.getElementById("formTitle").textContent =
-    "Modifier la publication";
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+    publishButton.textContent =
+        "Publier";
 
 }
 
 
-/* ================================
-   SUPPRIMER
-================================ */
-
-function deletePublication(id) {
-
-  const confirmation =
-    confirm(
-      "Voulez-vous vraiment supprimer cette publication ?"
-    );
-
-
-  if (!confirmation) {
-    return;
-  }
-
-
-  let posts =
-    getPosts();
-
-
-  posts =
-    posts.filter(function(post) {
-
-      return String(post.id) !== String(id);
-
-    });
-
-
-  savePosts(posts);
-
-  loadAdminPosts();
-
-}
-
-
-/* ================================
-   RESET
-================================ */
-
-function resetForm() {
-
-  const form =
-    document.getElementById("publicationForm");
-
-
-  if (form) {
-    form.reset();
-  }
-
-
-  document.getElementById("editId").value =
-    "";
-
-
-  document.getElementById("formTitle").textContent =
-    "Nouvelle publication";
-
-
-  const preview =
-    document.getElementById("imagePreview");
-
-
-  preview.src = "";
-
-  preview.style.display =
-    "none";
-
-}
-
-
-/* ================================
+/* =====================================================
    DATE
-================================ */
+   ===================================================== */
 
-function formatDate(date) {
+function formatDate(date){
 
-  try {
+    try{
 
-    return new Date(date).toLocaleDateString(
-      "fr-FR",
-      {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-      }
-    );
+        return new Date(date)
+            .toLocaleDateString(
+                "fr-FR",
+                {
+                    day:"2-digit",
+                    month:"long",
+                    year:"numeric"
+                }
+            );
 
-  } catch (error) {
+    }catch(error){
 
-    return "";
+        return "";
 
-  }
-
-}
-
-
-/* ================================
-   PROTECTION
-================================ */
-
-function escapeHTML(text) {
-
-  if (!text) {
-    return "";
-  }
-
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    }
 
 }
