@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>AFRINOVA — Administration</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    body {
+      background: #f5f7fa;
+    }
+
+    .admin-page {
+      min-height: 100vh;
+      padding: 35px 0 80px;
+    }
+
+    .admin-header {
+      background: white;
+      border-bottom: 1px solid #eaecf0;
+      margin-bottom: 35px;
+    }
+
+    .admin-header-inner {
+      width: min(1150px, 92%);
+      margin: auto;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .admin-brand img {
+      width: 110px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .admin-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .admin-container {
+      width: min(1150px, 92%);
+      margin: auto;
+    }
+
+    .dashboard-card {
+      background: white;
+      border: 1px solid #eaecf0;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+    }
+
+    .dashboard-card h2 {
+      margin-bottom: 8px;
+      font-size: 25px;
+    }
+
+    .dashboard-card > p {
+      color: #667085;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .admin-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .admin-form label {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .admin-form input,
+    .admin-form textarea,
+    .admin-form select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d0d5dd;
+      border-radius: 7px;
+      margin-top: 7px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .admin-form input:focus,
+    .admin-form textarea:focus,
+    .admin-form select:focus {
+      border-color: #101828;
+    }
+
+    .image-preview {
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: none;
+      margin-top: 10px;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .btn-danger {
+      background: #b42318;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eaecf0;
+      color: #101828;
+    }
+
+    .admin-posts {
+      display: grid;
+      gap: 15px;
+    }
+
+    .admin-post {
+      border: 1px solid #eaecf0;
+      border-radius: 9px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .admin-post img {
+      width: 110px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .admin-post h3 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .admin-post p {
+      font-size: 12px;
+      color: #667085;
+    }
+
+    .post-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .small-btn {
+      border: 0;
+      border-radius: 5px;
+      padding: 9px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .empty-admin {
+      padding: 35px;
+      text-align: center;
+      color: #667085;
+      border: 1px dashed #d0d5dd;
+      border-radius: 8px;
+    }
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: min(430px, 100%);
+      background: white;
+      padding: 40px;
+      border-radius: 14px;
+      border: 1px solid #eaecf0;
+      box-shadow: 0 20px 60px rgba(16,24,40,.08);
+    }
+
+    .login-logo {
+      width: 140px;
+      height: 60px;
+      object-fit: contain;
+      margin: 0 auto 25px;
+    }
+
+    .login-box h1 {
+      font-size: 27px;
+      margin-bottom: 7px;
+      text-align: center;
+    }
+
+    .login-box p {
+      color: #667085;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid #d0d5dd;
+      border-radius: 7px;
+      outline: none;
+    }
+
+    .login-box button {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .login-error {
+      color: #b42318;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 12px;
+      display: none;
+    }
+
+    @media(max-width:700px) {
+
+      .admin-header-inner {
+        min-height: 70px;
+      }
+
+      .dashboard-card {
+        padding: 20px;
+      }
+
+      .admin-post {
+        grid-template-columns: 80px 1fr;
+      }
+
+      .admin-post img {
+        width: 80px;
+        height: 70px;
+      }
+
+      .post-buttons {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     CONNEXION ADMINISTRATEUR
+========================= -->
+
+<div id="loginScreen" class="login-screen">
+
+  <div class="login-box">
+
+    <img
+      src="logo2.jpg"
+      class="login-logo"
+      alt="AFRINOVA"
+    >
+
+    <h1>
+      Administration
+    </h1>
+
+    <p>
+      Connectez-vous pour gérer les publications AFRINOVA.
+    </p>
+
+    <input
+      type="text"
+      id="adminUsername"
+      placeholder="Identifiant"
+      autocomplete="username"
+    >
+
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Mot de passe"
+      autocomplete="current-password"
+    >
+
+    <button
+      class="btn btn-primary"
+      onclick="loginAdmin()"
+    >
+      Se connecter
+    </button>
+
+    <div
+      id="loginError"
+      class="login-error"
+    >
+      Identifiant ou mot de passe incorrect.
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     TABLEAU DE BORD
+========================= -->
+
+<div
+  id="adminDashboard"
+  style="display:none;"
+>
+
+  <header class="admin-header">
+
+    <div class="admin-header-inner">
+
+      <div class="admin-brand">
+
+        <img
+          src="logo2.jpg"
+          alt="AFRINOVA"
+        >
+
+        <span class="admin-title">
+          Tableau de bord
+        </span>
+
+      </div>
+
+      <button
+        class="btn btn-secondary"
+        onclick="logoutAdmin()"
+      >
+        Déconnexion
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="admin-page">
+
+    <div class="admin-container">
+
+
+      <!-- =========================
+           NOUVELLE PUBLICATION
+      ========================== -->
+
+      <section class="dashboard-card">
+
+        <h2 id="formTitle">
+          Nouvelle publication
+        </h2>
+
+        <p>
+          Créez une actualité qui apparaîtra
+          dans la section Actualités du site.
+        </p>
+
+
+        <form
+          id="publicationForm"
+          class="admin-form"
+          onsubmit="savePublication(event)"
+        >
+
+
+          <input
+            type="hidden"
+            id="editId"
+          >
+
+
+          <label>
+
+            Titre de la publication
+
+            <input
+              type="text"
+              id="postTitle"
+              placeholder="Ex. AFRINOVA lance une nouvelle initiative..."
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            Catégorie
+
+            <select id="postCategory">
+
+              <option value="Actualité">
+                Actualité
+              </option>
+
+              <option value="Innovation">
+                Innovation
+              </option>
+
+              <option value="Technologie">
+                Technologie
+              </option>
+
+              <option value="Événement">
+                Événement
+              </option>
+
+              <option value="Communiqué">
+                Communiqué
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+
+            Image de publication
+
+            <input
+              type="file"
+              id="postImageFile"
+              accept="image/*"
+            >
+
+            <small>
+              Choisissez une image depuis votre téléphone.
+            </small>
+
+          </label>
+
+
+          <img
+            id="imagePreview"
+            class="image-preview"
+            alt="Aperçu de l'image"
+          >
+
+
+          <label>
+
+            Contenu de la publication
+
+            <textarea
+              id="postContent"
+              rows="9"
+              placeholder="Écrivez le contenu de votre publication..."
+              required
+            ></textarea>
+
+          </label>
+
+
+          <div class="admin-actions">
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Publier
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="resetForm()"
+            >
+              Annuler
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- =========================
+           LISTE DES PUBLICATIONS
+      ========================== -->
+
+      <section class="dashboard-card">
+
+        <h2>
+          Publications
+        </h2>
+
+        <p>
+          Gérez les publications déjà créées.
+        </p>
+
+        <div
+          id="adminPosts"
+          class="admin-posts"
+        ></div>
+
+      </section>
+
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- SCRIPT ADMIN -->
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
