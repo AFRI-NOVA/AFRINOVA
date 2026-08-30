@@ -1,238 +1,917 @@
-/* =====================================================
-   AFRINOVA — ADMIN.JS
-   ===================================================== */
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AFRINOVA — Administration</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f6f8;
+    color:#101828;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.header{
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    width:125px;
+    height:55px;
+    object-fit:contain;
+}
+
+.container{
+    width:92%;
+    max-width:1050px;
+    margin:30px auto;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+
+h1{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+h2{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.description{
+    color:#667085;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:1px solid #d0d5dd;
+    border-radius:8px;
+    padding:13px;
+    background:#fff;
+    outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#111827;
+}
+
+textarea{
+    min-height:170px;
+    resize:vertical;
+}
+
+button{
+    border:0;
+    border-radius:8px;
+    padding:13px 20px;
+    font-weight:bold;
+}
+
+.primary{
+    background:#111827;
+    color:#fff;
+}
+
+.secondary{
+    background:#eaecf0;
+    color:#101828;
+}
+
+.danger{
+    background:#b42318;
+    color:#fff;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.message{
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:18px;
+    display:none;
+    font-size:14px;
+}
+
+.success{
+    background:#ecfdf3;
+    color:#027a48;
+}
+
+.error{
+    background:#fef3f2;
+    color:#b42318;
+}
+
+
+/* ==========================
+   PROFIL ADMINISTRATEUR
+========================== */
+
+.admin-profile{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:15px;
+    background:#f8fafc;
+    border-radius:12px;
+    margin-bottom:25px;
+}
+
+.admin-photo{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #fff;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+.admin-info h3{
+    margin-bottom:5px;
+}
+
+.admin-info p{
+    font-size:13px;
+    color:#667085;
+}
+
+
+/* ==========================
+   APERÇUS
+========================== */
+
+.preview{
+    width:100%;
+    max-height:300px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-top:10px;
+    display:none;
+}
+
+.profile-preview{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-top:10px;
+    display:none;
+    border:3px solid #fff;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+
+/* ==========================
+   PUBLICATIONS
+========================== */
+
+.post{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:18px;
+    margin-top:15px;
+}
+
+.post-main-image{
+    width:100%;
+    max-height:260px;
+    object-fit:cover;
+    border-radius:9px;
+    margin-bottom:15px;
+}
+
+.post-author{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.post-author img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.post-author strong{
+    display:block;
+    font-size:14px;
+}
+
+.post-author span{
+    display:block;
+    color:#667085;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.post h3{
+    margin-bottom:6px;
+}
+
+.post-meta{
+    color:#667085;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.post-content{
+    white-space:pre-wrap;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.empty{
+    padding:30px;
+    text-align:center;
+    color:#667085;
+    border:1px dashed #d0d5dd;
+    border-radius:10px;
+}
+
+
+/* ==========================
+   LOGIN
+========================== */
+
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 15px 50px rgba(0,0,0,.1);
+}
+
+.login .logo{
+    display:block;
+    margin:0 auto 20px;
+}
+
+.login h1{
+    text-align:center;
+}
+
+.login p{
+    text-align:center;
+    color:#667085;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.login button{
+    width:100%;
+}
+
+
+/* ==========================
+   DASHBOARD
+========================== */
+
+#dashboard{
+    display:none;
+}
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:600px){
+
+    .header{
+        padding:10px 12px;
+    }
+
+    .logo{
+        width:105px;
+    }
+
+    .container{
+        width:94%;
+        margin-top:20px;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+    h1{
+        font-size:23px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     CONNEXION
+====================================================== -->
+
+<div id="loginPage">
+
+    <div class="login">
+
+        <img
+            src="logo2.jpg"
+            class="logo"
+            alt="AFRINOVA"
+        >
+
+        <h1>
+            Administration
+        </h1>
+
+        <p>
+            Accédez à l'espace de publication AFRINOVA.
+        </p>
+
+        <div
+            id="loginMessage"
+            class="message error"
+        ></div>
+
+        <div class="field">
+
+            <label>
+                Identifiant
+            </label>
+
+            <input
+                id="username"
+                type="text"
+                placeholder="Identifiant"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Mot de passe
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Mot de passe"
+            >
+
+        </div>
+
+
+        <button
+            id="loginButton"
+            class="primary"
+            type="button"
+        >
+            Se connecter
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+====================================================== -->
+
+<div id="dashboard">
+
+
+<header class="header">
+
+    <img
+        src="logo2.jpg"
+        class="logo"
+        alt="AFRINOVA"
+    >
+
+    <button
+        id="logoutButton"
+        class="secondary"
+        type="button"
+    >
+        Déconnexion
+    </button>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     PROFIL ADMIN
+====================================================== -->
+
+<section class="card">
+
+    <h1>
+        Profil administrateur
+    </h1>
+
+    <p class="description">
+        Ces informations seront affichées sur vos publications.
+    </p>
+
+
+    <div class="admin-profile">
+
+        <img
+            id="currentAdminPhoto"
+            class="admin-photo"
+            src="logo2.jpg"
+            alt="Administrateur"
+        >
+
+        <div class="admin-info">
+
+            <h3 id="currentAdminName">
+                Administrateur AFRINOVA
+            </h3>
+
+            <p id="currentAdminRole">
+                Administration
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Nom de l'administrateur
+        </label>
+
+        <input
+            id="adminName"
+            type="text"
+            placeholder="Ex. Enock Kehoumbou"
+        >
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Fonction
+        </label>
+
+        <input
+            id="adminRole"
+            type="text"
+            placeholder="Ex. Directeur / Administrateur"
+        >
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Photo de l'administrateur
+        </label>
+
+        <input
+            id="adminPhoto"
+            type="file"
+            accept="image/*"
+        >
+
+        <img
+            id="adminPhotoPreview"
+            class="profile-preview"
+            alt="Aperçu"
+        >
+
+    </div>
+
+
+    <button
+        id="saveAdminProfile"
+        class="primary"
+        type="button"
+    >
+        Enregistrer le profil
+    </button>
+
+</section>
+
+
+
+<!-- =====================================================
+     PUBLICATION
+====================================================== -->
+
+<section class="card">
+
+    <h1 id="formTitle">
+        Nouvelle publication
+    </h1>
+
+    <p class="description">
+        Créez une publication qui pourra apparaître
+        dans la section Actualités du site.
+    </p>
+
+
+    <div
+        id="publicationMessage"
+        class="message"
+    ></div>
+
+
+    <form id="publicationForm">
+
+        <input
+            id="editId"
+            type="hidden"
+        >
+
+
+        <div class="field">
+
+            <label>
+                Titre de la publication
+            </label>
+
+            <input
+                id="title"
+                type="text"
+                placeholder="Titre de votre publication"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Catégorie
+            </label>
+
+            <select id="category">
+
+                <option value="Actualité">
+                    Actualité
+                </option>
+
+                <option value="Innovation">
+                    Innovation
+                </option>
+
+                <option value="Technologie">
+                    Technologie
+                </option>
+
+                <option value="Événement">
+                    Événement
+                </option>
+
+                <option value="Communiqué">
+                    Communiqué
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Image de la publication
+            </label>
+
+            <input
+                id="image"
+                type="file"
+                accept="image/*"
+            >
+
+            <img
+                id="preview"
+                class="preview"
+                alt="Aperçu de la publication"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Contenu
+            </label>
+
+            <textarea
+                id="content"
+                placeholder="Écrivez votre publication ici..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                id="publishButton"
+                class="primary"
+                type="submit"
+            >
+                Publier
+            </button>
+
+            <button
+                id="cancelButton"
+                class="secondary"
+                type="button"
+            >
+                Annuler
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+
+
+<!-- =====================================================
+     PUBLICATIONS
+====================================================== -->
+
+<section class="card">
+
+    <h2>
+        Publications AFRINOVA
+    </h2>
+
+    <p class="description">
+        Gérez les publications créées depuis cet appareil.
+    </p>
+
+    <div id="postsList"></div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
 
 "use strict";
 
 
 /* =====================================================
    IDENTIFIANTS
-   ===================================================== */
+====================================================== */
 
-const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "afrinova2026";
+const USERNAME = "admin";
+const PASSWORD = "afrinova2026";
 
-const STORAGE_KEY = "afrinovaPublications";
+
+/* =====================================================
+   STOCKAGE
+====================================================== */
+
+const POSTS_KEY =
+    "afrinovaPublications";
+
+const PROFILE_KEY =
+    "afrinovaAdminProfile";
 
 
 /* =====================================================
    ÉLÉMENTS
-   ===================================================== */
+====================================================== */
 
-let loginPage;
-let dashboard;
-let username;
-let password;
-let loginButton;
-let logoutButton;
+const loginPage =
+    document.getElementById("loginPage");
 
-let publicationForm;
-let editId;
-let title;
-let category;
-let image;
-let preview;
-let content;
-let postsList;
+const dashboard =
+    document.getElementById("dashboard");
 
-let formTitle;
-let publishButton;
-let cancelButton;
+const username =
+    document.getElementById("username");
 
-let loginMessage;
-let publicationMessage;
+const password =
+    document.getElementById("password");
 
+const loginButton =
+    document.getElementById("loginButton");
 
-/* =====================================================
-   DÉMARRAGE
-   ===================================================== */
+const logoutButton =
+    document.getElementById("logoutButton");
 
-document.addEventListener("DOMContentLoaded", function(){
+const loginMessage =
+    document.getElementById("loginMessage");
 
-    console.log("AFRINOVA ADMIN : JavaScript chargé.");
+const adminName =
+    document.getElementById("adminName");
 
-    loginPage =
-        document.getElementById("loginPage");
+const adminRole =
+    document.getElementById("adminRole");
 
-    dashboard =
-        document.getElementById("dashboard");
+const adminPhoto =
+    document.getElementById("adminPhoto");
 
-    username =
-        document.getElementById("username");
+const adminPhotoPreview =
+    document.getElementById("adminPhotoPreview");
 
-    password =
-        document.getElementById("password");
+const currentAdminPhoto =
+    document.getElementById("currentAdminPhoto");
 
-    loginButton =
-        document.getElementById("loginButton");
+const currentAdminName =
+    document.getElementById("currentAdminName");
 
-    logoutButton =
-        document.getElementById("logoutButton");
+const currentAdminRole =
+    document.getElementById("currentAdminRole");
 
-    publicationForm =
-        document.getElementById("publicationForm");
+const saveAdminProfile =
+    document.getElementById("saveAdminProfile");
 
-    editId =
-        document.getElementById("editId");
+const publicationForm =
+    document.getElementById("publicationForm");
 
-    title =
-        document.getElementById("title");
+const editId =
+    document.getElementById("editId");
 
-    category =
-        document.getElementById("category");
+const title =
+    document.getElementById("title");
 
-    image =
-        document.getElementById("image");
+const category =
+    document.getElementById("category");
 
-    preview =
-        document.getElementById("preview");
+const image =
+    document.getElementById("image");
 
-    content =
-        document.getElementById("content");
+const preview =
+    document.getElementById("preview");
 
-    postsList =
-        document.getElementById("postsList");
+const content =
+    document.getElementById("content");
 
-    formTitle =
-        document.getElementById("formTitle");
+const postsList =
+    document.getElementById("postsList");
 
-    publishButton =
-        document.getElementById("publishButton");
+const formTitle =
+    document.getElementById("formTitle");
 
-    cancelButton =
-        document.getElementById("cancelButton");
+const publishButton =
+    document.getElementById("publishButton");
 
-    loginMessage =
-        document.getElementById("loginMessage");
+const cancelButton =
+    document.getElementById("cancelButton");
 
-    publicationMessage =
-        document.getElementById("publicationMessage");
-
-
-    /* Bouton connexion */
-
-    loginButton.addEventListener(
-        "click",
-        loginAdmin
-    );
-
-
-    /* Touche Entrée */
-
-    password.addEventListener(
-        "keydown",
-        function(event){
-
-            if(event.key === "Enter"){
-                loginAdmin();
-            }
-
-        }
-    );
-
-
-    username.addEventListener(
-        "keydown",
-        function(event){
-
-            if(event.key === "Enter"){
-                loginAdmin();
-            }
-
-        }
-    );
-
-
-    /* Déconnexion */
-
-    logoutButton.addEventListener(
-        "click",
-        logoutAdmin
-    );
-
-
-    /* Formulaire */
-
-    publicationForm.addEventListener(
-        "submit",
-        savePublication
-    );
-
-
-    /* Annuler */
-
-    cancelButton.addEventListener(
-        "click",
-        resetForm
-    );
-
-
-    /* Image */
-
-    image.addEventListener(
-        "change",
-        previewImage
-    );
-
-
-    /* Vérifier connexion */
-
-    if(
-        sessionStorage.getItem(
-            "afrinovaAdminConnected"
-        ) === "true"
-    ){
-
-        showDashboard();
-
-    }else{
-
-        showLogin();
-
-    }
-
-});
+const publicationMessage =
+    document.getElementById("publicationMessage");
 
 
 /* =====================================================
    CONNEXION
-   ===================================================== */
+====================================================== */
 
-function loginAdmin(){
+loginButton.addEventListener(
+    "click",
+    login
+);
 
-    const user =
-        username.value.trim();
 
-    const pass =
-        password.value;
+username.addEventListener(
+    "keydown",
+    function(e){
 
+        if(e.key === "Enter"){
+            login();
+        }
+
+    }
+);
+
+
+password.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Enter"){
+            login();
+        }
+
+    }
+);
+
+
+function login(){
 
     if(
-        user === ADMIN_USERNAME &&
-        pass === ADMIN_PASSWORD
+        username.value.trim() === USERNAME &&
+        password.value === PASSWORD
     ){
 
         sessionStorage.setItem(
-            "afrinovaAdminConnected",
+            "afrinovaAdmin",
             "true"
         );
-
-        hideLoginMessage();
-
-        username.value = "";
-        password.value = "";
 
         showDashboard();
 
     }else{
 
-        showLoginMessage(
-            "Identifiant ou mot de passe incorrect."
-        );
+        loginMessage.textContent =
+            "Identifiant ou mot de passe incorrect.";
 
-        password.value = "";
-
-        password.focus();
+        loginMessage.style.display =
+            "block";
 
     }
 
@@ -240,246 +919,305 @@ function loginAdmin(){
 
 
 /* =====================================================
-   AFFICHER CONNEXION
-   ===================================================== */
-
-function showLogin(){
-
-    loginPage.style.display = "flex";
-
-    dashboard.style.display = "none";
-
-}
-
-
-/* =====================================================
-   AFFICHER TABLEAU
-   ===================================================== */
+   AFFICHAGE
+====================================================== */
 
 function showDashboard(){
 
-    loginPage.style.display = "none";
+    loginPage.style.display =
+        "none";
 
-    dashboard.style.display = "block";
+    dashboard.style.display =
+        "block";
+
+    loadProfile();
 
     loadPosts();
 
 }
 
 
-/* =====================================================
-   DÉCONNEXION
-   ===================================================== */
+function showLogin(){
 
-function logoutAdmin(){
+    loginPage.style.display =
+        "flex";
 
-    sessionStorage.removeItem(
-        "afrinovaAdminConnected"
-    );
-
-    showLogin();
-
-}
-
-
-/* =====================================================
-   MESSAGE CONNEXION
-   ===================================================== */
-
-function showLoginMessage(message){
-
-    loginMessage.textContent = message;
-
-    loginMessage.style.display = "block";
-
-}
-
-
-function hideLoginMessage(){
-
-    loginMessage.textContent = "";
-
-    loginMessage.style.display = "none";
-
-}
-
-
-/* =====================================================
-   MESSAGE PUBLICATION
-   ===================================================== */
-
-function showPublicationMessage(
-    message,
-    type
-){
-
-    publicationMessage.textContent =
-        message;
-
-    publicationMessage.className =
-        "message " + type;
-
-    publicationMessage.style.display =
-        "block";
-
-}
-
-
-function hidePublicationMessage(){
-
-    publicationMessage.textContent = "";
-
-    publicationMessage.style.display =
+    dashboard.style.display =
         "none";
 
 }
 
 
-/* =====================================================
-   RÉCUPÉRER LES PUBLICATIONS
-   ===================================================== */
+logoutButton.addEventListener(
+    "click",
+    function(){
 
-function getPosts(){
+        sessionStorage.removeItem(
+            "afrinovaAdmin"
+        );
+
+        showLogin();
+
+    }
+);
+
+
+/* =====================================================
+   PROFIL ADMIN
+====================================================== */
+
+adminPhoto.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            adminPhoto.files[0];
+
+        if(!file){
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(e){
+
+                adminPhotoPreview.src =
+                    e.target.result;
+
+                adminPhotoPreview.style.display =
+                    "block";
+
+            };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+saveAdminProfile.addEventListener(
+    "click",
+    saveProfile
+);
+
+
+function saveProfile(){
+
+    const name =
+        adminName.value.trim() ||
+        "Administrateur AFRINOVA";
+
+    const role =
+        adminRole.value.trim() ||
+        "Administration";
+
+
+    const existing =
+        getProfile();
+
+
+    const profile = {
+
+        name:name,
+
+        role:role,
+
+        photo:
+            existing.photo ||
+            "logo2.jpg"
+
+    };
+
+
+    const file =
+        adminPhoto.files[0];
+
+
+    if(file){
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(e){
+
+                profile.photo =
+                    e.target.result;
+
+                localStorage.setItem(
+                    PROFILE_KEY,
+                    JSON.stringify(profile)
+                );
+
+                displayProfile(
+                    profile
+                );
+
+                alert(
+                    "Profil administrateur enregistré."
+                );
+
+            };
+
+        reader.readAsDataURL(file);
+
+    }else{
+
+        localStorage.setItem(
+            PROFILE_KEY,
+            JSON.stringify(profile)
+        );
+
+        displayProfile(
+            profile
+        );
+
+        alert(
+            "Profil administrateur enregistré."
+        );
+
+    }
+
+}
+
+
+function getProfile(){
 
     try{
 
         const data =
             localStorage.getItem(
-                STORAGE_KEY
+                PROFILE_KEY
             );
 
         if(!data){
-            return [];
+
+            return {
+
+                name:
+                    "Administrateur AFRINOVA",
+
+                role:
+                    "Administration",
+
+                photo:
+                    "logo2.jpg"
+
+            };
+
         }
 
-        const posts =
-            JSON.parse(data);
+        return JSON.parse(data);
 
-        if(!Array.isArray(posts)){
-            return [];
-        }
+    }catch(e){
 
-        return posts;
+        return {
 
-    }catch(error){
+            name:
+                "Administrateur AFRINOVA",
 
-        console.error(error);
+            role:
+                "Administration",
 
-        return [];
-
-    }
-
-}
-
-
-/* =====================================================
-   SAUVEGARDER
-   ===================================================== */
-
-function savePosts(posts){
-
-    try{
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(posts)
-        );
-
-        return true;
-
-    }catch(error){
-
-        console.error(error);
-
-        alert(
-            "Impossible d'enregistrer la publication. " +
-            "L'image est peut-être trop lourde."
-        );
-
-        return false;
-
-    }
-
-}
-
-
-/* =====================================================
-   IMAGE
-   ===================================================== */
-
-function previewImage(){
-
-    const file =
-        image.files[0];
-
-    if(!file){
-
-        preview.style.display =
-            "none";
-
-        preview.src = "";
-
-        return;
-
-    }
-
-
-    if(
-        !file.type.startsWith("image/")
-    ){
-
-        alert(
-            "Veuillez choisir une image."
-        );
-
-        image.value = "";
-
-        return;
-
-    }
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(event){
-
-            preview.src =
-                event.target.result;
-
-            preview.style.display =
-                "block";
+            photo:
+                "logo2.jpg"
 
         };
 
+    }
 
-    reader.readAsDataURL(file);
+}
+
+
+function loadProfile(){
+
+    const profile =
+        getProfile();
+
+    adminName.value =
+        profile.name;
+
+    adminRole.value =
+        profile.role;
+
+    displayProfile(
+        profile
+    );
+
+}
+
+
+function displayProfile(profile){
+
+    currentAdminName.textContent =
+        profile.name;
+
+    currentAdminRole.textContent =
+        profile.role;
+
+    currentAdminPhoto.src =
+        profile.photo ||
+        "logo2.jpg";
 
 }
 
 
 /* =====================================================
-   ENREGISTRER PUBLICATION
-   ===================================================== */
+   PUBLICATION
+====================================================== */
 
-function savePublication(event){
+image.addEventListener(
+    "change",
+    function(){
 
-    event.preventDefault();
+        const file =
+            image.files[0];
 
+        if(!file){
+            return;
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(e){
+
+                preview.src =
+                    e.target.result;
+
+                preview.style.display =
+                    "block";
+
+            };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+publicationForm.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+        createPublication();
+
+    }
+);
+
+
+function createPublication(){
 
     const postTitle =
         title.value.trim();
 
-    const postCategory =
-        category.value;
-
     const postContent =
         content.value.trim();
-
-    const selectedFile =
-        image.files[0];
 
 
     if(!postTitle){
@@ -489,8 +1227,6 @@ function savePublication(event){
             "error"
         );
 
-        title.focus();
-
         return;
 
     }
@@ -499,45 +1235,43 @@ function savePublication(event){
     if(!postContent){
 
         showPublicationMessage(
-            "Veuillez écrire le contenu.",
+            "Veuillez entrer le contenu.",
             "error"
         );
-
-        content.focus();
 
         return;
 
     }
 
 
+    const profile =
+        getProfile();
+
+
     let posts =
         getPosts();
 
 
-    /* MODIFICATION */
+    const id =
+        editId.value;
 
-    if(editId.value){
+
+    const file =
+        image.files[0];
+
+
+    if(id){
 
         const index =
             posts.findIndex(
-                function(post){
-
-                    return String(post.id) ===
-                        String(editId.value);
-
-                }
+                p =>
+                    String(p.id) ===
+                    String(id)
             );
 
 
         if(index === -1){
-
-            showPublicationMessage(
-                "Publication introuvable.",
-                "error"
-            );
-
             return;
-
         }
 
 
@@ -545,25 +1279,24 @@ function savePublication(event){
             postTitle;
 
         posts[index].category =
-            postCategory;
+            category.value;
 
         posts[index].content =
             postContent;
 
-        posts[index].updated =
-            new Date().toISOString();
+        posts[index].admin =
+            profile;
 
+        if(file){
 
-        if(selectedFile){
-
-            readImage(
-                selectedFile,
+            readFile(
+                file,
                 function(data){
 
                     posts[index].image =
                         data;
 
-                    finishSave(
+                    finish(
                         posts,
                         "Publication modifiée avec succès."
                     );
@@ -573,42 +1306,47 @@ function savePublication(event){
 
         }else{
 
-            finishSave(
+            finish(
                 posts,
                 "Publication modifiée avec succès."
             );
 
         }
 
-
         return;
 
     }
 
 
-    /* NOUVELLE PUBLICATION */
-
     const newPost = {
 
         id:Date.now(),
 
-        title:postTitle,
+        title:
+            postTitle,
 
-        category:postCategory,
+        category:
+            category.value,
 
-        content:postContent,
+        content:
+            postContent,
 
-        image:"plateforme.jpg",
+        image:
+            "plateforme.jpg",
 
-        date:new Date().toISOString()
+        admin:
+            profile,
+
+        date:
+            new Date().toISOString()
 
     };
 
 
-    if(selectedFile){
+    if(file){
 
-        readImage(
-            selectedFile,
+        readFile(
+            file,
             function(data){
 
                 newPost.image =
@@ -618,7 +1356,7 @@ function savePublication(event){
                     newPost
                 );
 
-                finishSave(
+                finish(
                     posts,
                     "Publication publiée avec succès."
                 );
@@ -632,7 +1370,7 @@ function savePublication(event){
             newPost
         );
 
-        finishSave(
+        finish(
             posts,
             "Publication publiée avec succès."
         );
@@ -643,22 +1381,21 @@ function savePublication(event){
 
 
 /* =====================================================
-   LECTURE IMAGE
-   ===================================================== */
+   LIRE IMAGE
+====================================================== */
 
-function readImage(
+function readFile(
     file,
     callback
 ){
 
-    const maxSize =
-        4 * 1024 * 1024;
-
-
-    if(file.size > maxSize){
+    if(
+        file.size >
+        4 * 1024 * 1024
+    ){
 
         showPublicationMessage(
-            "Image trop lourde. Utilisez une image de moins de 4 MB.",
+            "Image trop lourde. Maximum 4 MB.",
             "error"
         );
 
@@ -672,21 +1409,10 @@ function readImage(
 
 
     reader.onload =
-        function(event){
+        function(e){
 
             callback(
-                event.target.result
-            );
-
-        };
-
-
-    reader.onerror =
-        function(){
-
-            showPublicationMessage(
-                "Impossible de lire l'image.",
-                "error"
+                e.target.result
             );
 
         };
@@ -698,17 +1424,20 @@ function readImage(
 
 
 /* =====================================================
-   FIN SAUVEGARDE
-   ===================================================== */
+   FINALISER
+====================================================== */
 
-function finishSave(
+function finish(
     posts,
     message
 ){
 
-    if(
-        savePosts(posts)
-    ){
+    try{
+
+        localStorage.setItem(
+            POSTS_KEY,
+            JSON.stringify(posts)
+        );
 
         showPublicationMessage(
             message,
@@ -719,14 +1448,43 @@ function finishSave(
 
         loadPosts();
 
+    }catch(e){
+
+        alert(
+            "Impossible d'enregistrer. " +
+            "L'espace de stockage du navigateur est peut-être plein."
+        );
+
     }
 
 }
 
 
 /* =====================================================
-   AFFICHER PUBLICATIONS
-   ===================================================== */
+   PUBLICATIONS
+====================================================== */
+
+function getPosts(){
+
+    try{
+
+        const data =
+            localStorage.getItem(
+                POSTS_KEY
+            );
+
+        return data
+            ? JSON.parse(data)
+            : [];
+
+    }catch(e){
+
+        return [];
+
+    }
+
+}
+
 
 function loadPosts(){
 
@@ -734,15 +1492,15 @@ function loadPosts(){
         getPosts();
 
 
-    postsList.innerHTML = "";
+    postsList.innerHTML =
+        "";
 
 
     if(posts.length === 0){
 
         postsList.innerHTML = `
 
-            <div class="message success"
-                 style="display:block">
+            <div class="empty">
 
                 Aucune publication pour le moment.
 
@@ -759,49 +1517,123 @@ function loadPosts(){
         function(post){
 
             const article =
-                document.createElement("article");
+                document.createElement(
+                    "article"
+                );
 
             article.className =
                 "post";
 
 
-            const img =
-                document.createElement("img");
+            const mainImage =
+                document.createElement(
+                    "img"
+                );
 
-            img.src =
+            mainImage.className =
+                "post-main-image";
+
+            mainImage.src =
                 post.image ||
                 "plateforme.jpg";
 
-            img.onerror =
-                function(){
 
-                    this.src =
-                        "plateforme.jpg";
+            const author =
+                document.createElement(
+                    "div"
+                );
 
-                };
+            author.className =
+                "post-author";
+
+
+            const authorPhoto =
+                document.createElement(
+                    "img"
+                );
+
+            authorPhoto.src =
+                post.admin &&
+                post.admin.photo
+                    ? post.admin.photo
+                    : "logo2.jpg";
+
+
+            const authorInfo =
+                document.createElement(
+                    "div"
+                );
+
+
+            const authorName =
+                document.createElement(
+                    "strong"
+                );
+
+            authorName.textContent =
+                post.admin &&
+                post.admin.name
+                    ? post.admin.name
+                    : "Administrateur AFRINOVA";
+
+
+            const authorRole =
+                document.createElement(
+                    "span"
+                );
+
+            authorRole.textContent =
+                post.admin &&
+                post.admin.role
+                    ? post.admin.role
+                    : "Administration";
+
+
+            authorInfo.appendChild(
+                authorName
+            );
+
+            authorInfo.appendChild(
+                authorRole
+            );
+
+
+            author.appendChild(
+                authorPhoto
+            );
+
+            author.appendChild(
+                authorInfo
+            );
 
 
             const heading =
-                document.createElement("h3");
+                document.createElement(
+                    "h3"
+                );
 
             heading.textContent =
                 post.title;
 
 
             const meta =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             meta.className =
                 "post-meta";
 
             meta.textContent =
-                (post.category || "Actualité")
-                + " • "
-                + formatDate(post.date);
+                post.category +
+                " • " +
+                formatDate(post.date);
 
 
             const text =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             text.className =
                 "post-content";
@@ -811,78 +1643,88 @@ function loadPosts(){
 
 
             const actions =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
             actions.className =
                 "actions";
 
 
-            const editButton =
-                document.createElement("button");
+            const edit =
+                document.createElement(
+                    "button"
+                );
 
-            editButton.className =
+            edit.className =
                 "secondary";
 
-            editButton.textContent =
+            edit.textContent =
                 "Modifier";
 
-            editButton.type =
-                "button";
-
-            editButton.addEventListener(
-                "click",
+            edit.onclick =
                 function(){
 
                     editPublication(
                         post.id
                     );
 
-                }
-            );
+                };
 
 
-            const deleteButton =
-                document.createElement("button");
+            const remove =
+                document.createElement(
+                    "button"
+                );
 
-            deleteButton.className =
+            remove.className =
                 "danger";
 
-            deleteButton.textContent =
+            remove.textContent =
                 "Supprimer";
 
-            deleteButton.type =
-                "button";
-
-            deleteButton.addEventListener(
-                "click",
+            remove.onclick =
                 function(){
 
                     deletePublication(
                         post.id
                     );
 
-                }
-            );
+                };
 
 
             actions.appendChild(
-                editButton
+                edit
             );
 
             actions.appendChild(
-                deleteButton
+                remove
             );
 
 
-            article.appendChild(img);
+            article.appendChild(
+                mainImage
+            );
 
-            article.appendChild(heading);
+            article.appendChild(
+                author
+            );
 
-            article.appendChild(meta);
+            article.appendChild(
+                heading
+            );
 
-            article.appendChild(text);
+            article.appendChild(
+                meta
+            );
 
-            article.appendChild(actions);
+            article.appendChild(
+                text
+            );
+
+            article.appendChild(
+                actions
+            );
 
 
             postsList.appendChild(
@@ -897,7 +1739,7 @@ function loadPosts(){
 
 /* =====================================================
    MODIFIER
-   ===================================================== */
+====================================================== */
 
 function editPublication(id){
 
@@ -907,23 +1749,14 @@ function editPublication(id){
 
     const post =
         posts.find(
-            function(item){
-
-                return String(item.id) ===
-                    String(id);
-
-            }
+            p =>
+                String(p.id) ===
+                String(id)
         );
 
 
     if(!post){
-
-        alert(
-            "Publication introuvable."
-        );
-
         return;
-
     }
 
 
@@ -934,8 +1767,7 @@ function editPublication(id){
         post.title;
 
     category.value =
-        post.category ||
-        "Actualité";
+        post.category;
 
     content.value =
         post.content;
@@ -956,33 +1788,29 @@ function editPublication(id){
         "Modifier la publication";
 
     publishButton.textContent =
-        "Enregistrer les modifications";
+        "Enregistrer";
 
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
+    window.scrollTo(
+        {
+            top:0,
+            behavior:"smooth"
+        }
+    );
 
 }
 
 
 /* =====================================================
    SUPPRIMER
-   ===================================================== */
+====================================================== */
 
 function deletePublication(id){
 
-    const confirmation =
-        confirm(
-            "Voulez-vous vraiment supprimer cette publication ?"
-        );
-
-
-    if(!confirmation){
+    if(
+        !confirm(
+            "Supprimer cette publication ?"
+        )
+    ){
 
         return;
 
@@ -995,42 +1823,36 @@ function deletePublication(id){
 
     posts =
         posts.filter(
-            function(post){
-
-                return String(post.id) !==
-                    String(id);
-
-            }
+            p =>
+                String(p.id) !==
+                String(id)
         );
 
 
-    if(
-        savePosts(posts)
-    ){
+    localStorage.setItem(
+        POSTS_KEY,
+        JSON.stringify(posts)
+    );
 
-        showPublicationMessage(
-            "Publication supprimée.",
-            "success"
-        );
 
-        loadPosts();
-
-    }
+    loadPosts();
 
 }
 
 
 /* =====================================================
    RESET
-   ===================================================== */
+====================================================== */
 
 function resetForm(){
 
     publicationForm.reset();
 
-    editId.value = "";
+    editId.value =
+        "";
 
-    preview.src = "";
+    preview.src =
+        "";
 
     preview.style.display =
         "none";
@@ -1045,8 +1867,29 @@ function resetForm(){
 
 
 /* =====================================================
+   MESSAGE
+====================================================== */
+
+function showPublicationMessage(
+    message,
+    type
+){
+
+    publicationMessage.textContent =
+        message;
+
+    publicationMessage.className =
+        "message " + type;
+
+    publicationMessage.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
    DATE
-   ===================================================== */
+====================================================== */
 
 function formatDate(date){
 
@@ -1062,10 +1905,34 @@ function formatDate(date){
                 }
             );
 
-    }catch(error){
+    }catch(e){
 
         return "";
 
     }
 
 }
+
+
+/* =====================================================
+   DÉMARRAGE
+====================================================== */
+
+if(
+    sessionStorage.getItem(
+        "afrinovaAdmin"
+    ) === "true"
+){
+
+    showDashboard();
+
+}else{
+
+    showLogin();
+
+}
+
+</script>
+
+</body>
+</html>

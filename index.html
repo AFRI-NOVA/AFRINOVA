@@ -1,1055 +1,2313 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AFRINOVA — Laboratoire de Transformation Digitale</title>
+<title>AFRINOVA — Laboratoire de Transformation Digitale</title>
 
-  <link rel="stylesheet" href="style.css">
+<meta name="description" content="AFRINOVA — Laboratoire collaboratif international reliant recherche, innovation et développement durable entre l'Afrique, l'Europe et l'Amérique du Nord.">
+
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="header">
-  <div class="nav-container">
+<!-- =========================
+     HEADER
+========================= -->
 
-    <a href="#accueil" class="logo">
-      <img src="logo2.jpg" alt="AFRINOVA">
-    </a>
+<header class="header" id="header">
 
-    <nav class="nav" id="mainNav">
-      <a href="#accueil" data-fr="Accueil" data-en="Home" data-es="Inicio" data-pt="Início">Accueil</a>
+    <div class="nav-container">
 
-      <a href="#apropos"
-         data-fr="À propos"
-         data-en="About"
-         data-es="Sobre nosotros"
-         data-pt="Sobre nós">À propos</a>
+        <a href="#accueil" class="brand">
+            <img src="logo2.jpg" alt="AFRINOVA">
+            <span>
+                AFRINOVA
+                <small data-i18n="brandSub">
+                    LABORATOIRE DE TRANSFORMATION DIGITALE
+                </small>
+            </span>
+        </a>
 
-      <a href="#services"
-         data-fr="Services"
-         data-en="Services"
-         data-es="Servicios"
-         data-pt="Serviços">Services</a>
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Menu"
+            type="button">
+            ☰
+        </button>
 
-      <a href="#actualites"
-         data-fr="Actualités"
-         data-en="News"
-         data-es="Noticias"
-         data-pt="Notícias">Actualités</a>
+        <nav class="nav" id="mainNav">
 
-      <a href="#contact"
-         data-fr="Contact"
-         data-en="Contact"
-         data-es="Contacto"
-         data-pt="Contacto">Contact</a>
-    </nav>
+            <a href="#accueil" data-i18n="navHome">
+                Accueil
+            </a>
 
-    <div class="language-switcher">
-      <button onclick="changeLanguage('fr')" class="lang-btn active">FR</button>
-      <button onclick="changeLanguage('en')" class="lang-btn">EN</button>
-      <button onclick="changeLanguage('es')" class="lang-btn">ES</button>
-      <button onclick="changeLanguage('pt')" class="lang-btn">PT</button>
+            <a href="#laboratoire" data-i18n="navLab">
+                Laboratoire
+            </a>
+
+            <a href="#axes" data-i18n="navAxes">
+                Domaines
+            </a>
+
+            <a href="#initiatives" data-i18n="navInitiatives">
+                Initiatives
+            </a>
+
+            <a href="#equipe" data-i18n="navTeam">
+                Équipe
+            </a>
+
+            <a href="#actualites" data-i18n="navNews">
+                Actualités
+            </a>
+
+            <a href="#contact" data-i18n="navContact">
+                Contact
+            </a>
+
+        </nav>
+
+        <div class="language-box">
+
+            <button
+                id="languageButton"
+                class="language-button"
+                type="button">
+                FR ▾
+            </button>
+
+            <div
+                id="languageMenu"
+                class="language-menu">
+
+                <button data-lang="fr" type="button">
+                    🇫🇷 Français
+                </button>
+
+                <button data-lang="en" type="button">
+                    🇬🇧 English
+                </button>
+
+                <button data-lang="es" type="button">
+                    🇪🇸 Español
+                </button>
+
+                <button data-lang="pt" type="button">
+                    🇵🇹 Português
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-
-  </div>
 </header>
+<style>*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:#ffffff;
+    color:#111827;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+
+    background:rgba(255,255,255,.94);
+
+    backdrop-filter:blur(16px);
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.nav-container{
+    max-width:1250px;
+    width:92%;
+    margin:auto;
+
+    min-height:76px;
+
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    min-width:max-content;
+}
+
+.brand img{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+    border-radius:8px;
+}
+
+.brand span{
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.brand small{
+    display:block;
+    font-size:7px;
+    letter-spacing:1.2px;
+    font-weight:600;
+    color:#667085;
+}
+
+.nav{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.nav a{
+    font-size:13px;
+    font-weight:600;
+    color:#344054;
+
+    transition:.25s;
+}
+
+.nav a:hover{
+    color:#000;
+}
+
+.language-box{
+    position:relative;
+}
+
+.language-button{
+    border:1px solid #d0d5dd;
+    background:#fff;
+
+    border-radius:8px;
+
+    padding:8px 12px;
+
+    font-size:12px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.language-menu{
+    position:absolute;
+    right:0;
+    top:45px;
+
+    width:150px;
+
+    background:#fff;
+
+    border:1px solid #e4e7ec;
+
+    border-radius:10px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+    padding:7px;
+
+    display:none;
+}
+
+.language-menu.active{
+    display:block;
+}
+
+.language-menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+
+    text-align:left;
+
+    padding:10px;
+
+    border-radius:7px;
+
+    cursor:pointer;
+}
+
+.language-menu button:hover{
+    background:#f2f4f7;
+}
+
+.menu-toggle{
+    display:none;
+
+    border:0;
+    background:transparent;
+
+    font-size:25px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:750px;
+
+    padding-top:76px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(4,15,25,.95),
+            rgba(4,15,25,.72),
+            rgba(4,15,25,.25)
+        ),
+        url("Ad.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(255,255,255,.08),
+            transparent 35%
+        );
+}
+
+.hero-content{
+    position:relative;
+
+    width:92%;
+    max-width:1250px;
+
+    margin:auto;
+
+    color:#fff;
+}
+
+.eyebrow{
+    display:inline-block;
+
+    font-size:11px;
+    letter-spacing:2px;
+    font-weight:700;
+
+    margin-bottom:22px;
+
+    opacity:.8;
+}
+
+.hero h1{
+    max-width:850px;
+
+    font-size:
+        clamp(42px,6vw,76px);
+
+    line-height:1.02;
+
+    letter-spacing:-3px;
+
+    margin-bottom:25px;
+}
+
+.hero p{
+    max-width:680px;
+
+    font-size:19px;
+
+    color:#e4e7ec;
+
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:13px 20px;
+
+    border-radius:8px;
+
+    font-size:13px;
+    font-weight:700;
+
+    transition:.25s;
+}
+
+.btn-primary{
+    background:#fff;
+    color:#101828;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+}
+
+.btn-outline{
+    border:1px solid rgba(255,255,255,.55);
+    color:#fff;
+}
+
+.btn-outline:hover{
+    background:#fff;
+    color:#111827;
+}
+
+.btn-dark{
+    background:#111827;
+    color:#fff;
+    border:0;
+    cursor:pointer;
+}
+
+
+/* =========================
+   GLOBAL SECTIONS
+========================= */
+
+.section{
+    padding:110px 0;
+}
+
+.section-container{
+    width:92%;
+    max-width:1150px;
+    margin:auto;
+}
+
+.section-label{
+    display:inline-block;
+
+    font-size:10px;
+    letter-spacing:2px;
+    font-weight:800;
+
+    color:#667085;
+
+    margin-bottom:15px;
+}
+
+.section-heading{
+    max-width:750px;
+    margin-bottom:50px;
+}
+
+.section-heading h2,
+.two-columns h2{
+    font-size:
+        clamp(32px,4vw,53px);
+
+    line-height:1.08;
+
+    letter-spacing:-2px;
+
+    margin-bottom:18px;
+}
+
+.section-heading p{
+    color:#667085;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats-section{
+    padding:75px 0;
+
+    border-bottom:1px solid #eaecf0;
+}
+
+.stats-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:20px;
+}
+
+.stat-card{
+    padding:25px 20px;
+
+    border-left:2px solid #111827;
+}
+
+.stat-card strong{
+    display:block;
+
+    font-size:34px;
+
+    letter-spacing:-1px;
+
+    margin-bottom:10px;
+}
+
+.stat-card p{
+    font-size:13px;
+    color:#667085;
+}
+
+
+/* =========================
+   TWO COLUMNS
+========================= */
+
+.two-columns{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:90px;
+
+    align-items:start;
+}
+
+.two-columns p{
+    color:#667085;
+
+    font-size:16px;
+
+    margin-bottom:20px;
+}
+
+
+/* =========================
+   DARK SECTION
+========================= */
+
+.section-dark{
+    background:#0b1118;
+    color:#fff;
+}
+
+.section-dark .section-label{
+    color:#98a2b3;
+}
+
+.section-dark .section-heading p{
+    color:#98a2b3;
+}
+
+.axes-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:1px;
+
+    background:#303843;
+}
+
+.axis-card{
+    background:#0b1118;
+
+    padding:30px;
+
+    min-height:290px;
+
+    transition:.3s;
+}
+
+.axis-card:hover{
+    background:#111a24;
+}
+
+.axis-number{
+    display:block;
+
+    color:#98a2b3;
+
+    font-size:12px;
+
+    margin-bottom:45px;
+}
+
+.axis-card h3{
+    font-size:21px;
+
+    margin-bottom:14px;
+}
+
+.axis-card p{
+    color:#98a2b3;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   INITIATIVES
+========================= */
+
+.initiative-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.initiative-card{
+    padding:30px;
+
+    border:1px solid #e4e7ec;
+
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.initiative-card:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.08);
+}
+
+.initiative-card > span{
+    font-size:10px;
+
+    letter-spacing:1.5px;
+
+    font-weight:800;
+
+    color:#667085;
+}
+
+.initiative-card h3{
+    font-size:22px;
+
+    line-height:1.2;
+
+    margin:20px 0 15px;
+}
+
+.initiative-card p{
+    color:#667085;
+
+    font-size:14px;
+}
+
+.tags{
+    display:flex;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+
+    margin-top:25px;
+}
+
+.tags span{
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    background:#f2f4f7;
+
+    color:#475467;
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+
+/* =========================
+   TEAM
+========================= */
+
+.team-section{
+    background:#f8fafc;
+}
+
+.team-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:25px;
+}
+
+.team-card{
+    background:#fff;
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    border:1px solid #eaecf0;
+}
+ .team-card img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    border-radius: 0;
+}
+
+@media (max-width: 600px) {
+    .team-card img {
+        height: 500px;
+        object-fit: cover;
+        object-position: center 5%;
+    }
+}
+
+.team-photo{
+    height:330px;
+
+    background:#e4e7ec;
+
+    overflow:hidden;
+}
+
+.team-photo img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.team-info{
+    padding:25px;
+}
+
+.team-info > span{
+    color:#667085;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.team-info h3{
+    font-size:25px;
+
+    margin:8px 0 12px;
+}
+
+.team-info p{
+    color:#667085;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   LOCATIONS
+========================= */
+
+.locations-section{
+    padding:100px 0;
+
+    background:#fff;
+
+    border-top:1px solid #eaecf0;
+}
+
+.locations-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:1px;
+
+    background:#d0d5dd;
+
+    margin-top:45px;
+}
+
+.location-card{
+    background:#fff;
+
+    padding:30px;
+
+    min-height:180px;
+}
+
+.location-card strong{
+    display:block;
+
+    font-size:25px;
+
+    margin-bottom:8px;
+}
+
+.location-card span{
+    display:block;
+
+    font-size:13px;
+
+    color:#667085;
+
+    margin-bottom:20px;
+}
+
+.location-card p{
+    font-size:13px;
+
+    color:#667085;
+}
+
+
+/* =========================
+   NEWS
+========================= */
+
+.news-section{
+    background:#f8fafc;
+}
+
+.news-heading{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+}
+
+.publications-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.publication-card{
+    background:#fff;
+
+    border:1px solid #eaecf0;
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+.publication-image{
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+}
+
+.publication-body{
+    padding:22px;
+}
+
+.publication-author{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+.publication-author img{
+    width:42px;
+    height:42px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+}
+
+.publication-author strong{
+    display:block;
+
+    font-size:12px;
+}
+
+.publication-author span{
+    display:block;
+
+    font-size:10px;
+
+    color:#667085;
+}
+
+.publication-category{
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    color:#667085;
+}
+
+.publication-card h3{
+    font-size:21px;
+
+    line-height:1.2;
+
+    margin:9px 0 12px;
+}
+
+.publication-card p{
+    color:#667085;
+
+    font-size:13px;
+}
+
+.publication-date{
+    display:block;
+
+    margin-top:15px;
+
+    font-size:10px;
+
+    color:#98a2b3;
+}
+
+.empty-news{
+    text-align:center;
+
+    padding:45px;
+
+    border:1px dashed #d0d5dd;
+
+    color:#667085;
+
+    border-radius:10px;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-section{
+    padding:110px 0;
+
+    background:#0b1118;
+
+    color:#fff;
+}
+
+.contact-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:90px;
+}
+
+.contact-section .section-label{
+    color:#98a2b3;
+}
+
+.contact-section h2{
+    font-size:
+        clamp(35px,4vw,55px);
+
+    line-height:1.05;
+
+    letter-spacing:-2px;
+
+    margin-bottom:20px;
+}
+
+.contact-section > .section-container > div > p{
+    color:#98a2b3;
+
+    max-width:530px;
+
+    margin-bottom:40px;
+}
+
+.contact-details{
+    display:grid;
+
+    gap:20px;
+}
+
+.contact-details strong{
+    display:block;
+
+    font-size:11px;
+
+    color:#98a2b3;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.contact-details span{
+    display:block;
+
+    margin-top:5px;
+
+    font-size:14px;
+}
+
+.contact-form-card{
+    background:#fff;
+
+    color:#111827;
+
+    padding:30px;
+
+    border-radius:13px;
+}
+
+.contact-form-card h3{
+    font-size:25px;
+
+    margin-bottom:7px;
+}
+
+.contact-form-card > p{
+    color:#667085;
+
+    font-size:13px;
+
+    margin-bottom:20px;
+}
+
+.contact-form-card input,
+.contact-form-card textarea,
+.contact-form-card select{
+    width:100%;
+
+    border:1px solid #d0d5dd;
+
+    border-radius:7px;
+
+    padding:12px;
+
+    margin-bottom:12px;
+
+    outline:none;
+}
+
+.contact-form-card textarea{
+    min-height:130px;
+
+    resize:vertical;
+}
+
+.contact-form-card button{
+    width:100%;
+}
+
+.form-status{
+    margin-top:12px;
+
+    font-size:12px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#05080c;
+
+    color:#fff;
+
+    padding:65px 0 0;
+}
+
+.footer-grid{
+    display:grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr 1fr;
+
+    gap:50px;
+
+    padding-bottom:50px;
+}
+
+.footer-brand{
+    font-size:25px;
+
+    font-weight:900;
+
+    margin-bottom:12px;
+}
+
+.footer-grid p{
+    color:#98a2b3;
+
+    max-width:270px;
+
+    font-size:13px;
+}
+
+.footer-grid h4{
+    margin-bottom:15px;
+
+    font-size:13px;
+}
+
+.footer-grid a{
+    display:block;
+
+    color:#98a2b3;
+
+    font-size:12px;
+
+    margin:8px 0;
+
+    transition:.2s;
+}
+
+.footer-grid a:hover{
+    color:#fff;
+}
+
+.footer-bottom{
+    border-top:1px solid #202731;
+
+    padding:20px 4%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    color:#667085;
+
+    font-size:10px;
+}
+
+
+/* =========================
+   ADMIN BUTTON
+========================= */
+
+.admin-access{
+    position:fixed;
+
+    right:18px;
+    bottom:18px;
+
+    width:43px;
+    height:43px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:#111827;
+
+    color:#fff;
+
+    border-radius:50%;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+
+    z-index:900;
+
+    font-size:18px;
+
+    opacity:.8;
+
+    transition:.2s;
+}
+
+.admin-access:hover{
+    opacity:1;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+
+    .nav{
+        gap:13px;
+    }
+
+    .nav a{
+        font-size:11px;
+    }
+
+    .axes-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:800px){
+
+    .nav-container{
+        position:relative;
+    }
+
+    .menu-toggle{
+        display:block;
+
+        margin-left:auto;
+    }
+
+    .nav{
+        position:absolute;
+
+        top:76px;
+        left:0;
+
+        width:100%;
+
+        background:#fff;
+
+        border-top:1px solid #eaecf0;
+
+        padding:15px;
+
+        display:none;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:0;
+
+        box-shadow:
+            0 15px 30px rgba(0,0,0,.08);
+    }
+
+    .nav.active{
+        display:flex;
+    }
+
+    .nav a{
+        padding:13px 8px;
+
+        border-bottom:1px solid #f2f4f7;
+    }
+
+    .language-box{
+        margin-left:0;
+    }
+
+    .two-columns,
+    .contact-grid{
+        grid-template-columns:1fr;
+
+        gap:45px;
+    }
+
+    .initiative-grid,
+    .team-grid,
+    .publications-grid{
+        grid-template-columns:1fr;
+    }
+
+    .locations-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+
+@media(max-width:550px){
+
+    .brand span{
+        font-size:15px;
+    }
+
+    .brand small{
+        font-size:6px;
+    }
+
+    .hero{
+        min-height:680px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+
+        font-size:43px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .axes-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+    }
+
+}</style>
+
+<!-- =========================
+     HERO
+========================= -->
 
 <main>
 
-<section class="hero" id="accueil">
+<section
+    class="hero"
+    id="accueil">
 
-  <div class="hero-overlay"></div>
+    <div class="hero-overlay"></div>
 
-  <div class="hero-content">
+    <div class="hero-content">
 
-    <span class="eyebrow">
-      AFRINOVA
-    </span>
+        <span
+            class="eyebrow"
+            data-i18n="heroEyebrow">
+            AFRIQUE · EUROPE · AMÉRIQUE DU NORD
+        </span>
 
-    <h1>
-      Laboratoire de Transformation Digitale
-    </h1>
+        <h1 data-i18n="heroTitle">
+            La science au service de la transformation digitale
+        </h1>
 
-    <p>
-      Nous accompagnons les gouvernements, organisations,
-      entreprises et acteurs du développement dans leur
-      transformation digitale.
-    </p>
-
-    <div class="hero-buttons">
-
-      <a href="#services" class="btn btn-primary">
-        Découvrir nos services
-      </a>
-
-      <a href="#contact" class="btn btn-outline">
-        Nous contacter
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="intro section" id="apropos">
-
-  <div class="container">
-
-    <div class="section-label">
-      AFRINOVA
-    </div>
-
-    <h2>
-      Transformer les idées en impact.
-    </h2>
-
-    <p class="section-text">
-      AFRINOVA est un laboratoire dédié à la transformation
-      digitale et à l'innovation. Nous développons des
-      solutions adaptées aux défis des institutions,
-      organisations et entreprises.
-    </p>
-
-  </div>
-
-</section>
-
-
-<section class="services section" id="services">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="section-label">
-        NOS EXPERTISES
-      </span>
-
-      <h2>
-        Des solutions pensées pour l'avenir
-      </h2>
-
-    </div>
-
-    <div class="service-grid">
-
-      <article class="service-card">
-        <div class="service-number">01</div>
-        <h3>Transformation digitale</h3>
-        <p>
-          Accompagnement des organisations dans la conception
-          et la mise en œuvre de stratégies digitales.
+        <p data-i18n="heroText">
+            Laboratoire collaboratif international qui relie
+            recherche, innovation et développement durable
+            entre trois continents.
         </p>
-      </article>
 
-      <article class="service-card">
-        <div class="service-number">02</div>
-        <h3>Innovation</h3>
-        <p>
-          Création de nouvelles approches et solutions
-          permettant de répondre aux enjeux émergents.
-        </p>
-      </article>
+        <div class="hero-buttons">
 
-      <article class="service-card">
-        <div class="service-number">03</div>
-        <h3>Technologies</h3>
-        <p>
-          Développement et intégration de solutions numériques
-          modernes adaptées aux besoins des utilisateurs.
-        </p>
-      </article>
+            <a
+                href="#axes"
+                class="btn btn-primary"
+                data-i18n="heroButton1">
+                Découvrir notre travail
+            </a>
 
-      <article class="service-card">
-        <div class="service-number">04</div>
-        <h3>Conseil</h3>
-        <p>
-          Conseil stratégique et accompagnement des décideurs
-          dans leurs projets de transformation.
-        </p>
-      </article>
+            <a
+                href="#contact"
+                class="btn btn-outline"
+                data-i18n="heroButton2">
+                Parler à l'équipe
+            </a>
+
+        </div>
 
     </div>
-
-  </div>
-
-</section>
-<style>* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #ffffff;
-  color: #101828;
-  line-height: 1.6;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.container {
-  width: min(1180px, 92%);
-  margin: auto;
-}
-
-
-/* HEADER */
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: rgba(255,255,255,.94);
-  backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(0,0,0,.06);
-}
-
-.nav-container {
-  width: min(1250px, 94%);
-  margin: auto;
-  min-height: 78px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.logo img {
-  width: 125px;
-  height: 55px;
-  object-fit: contain;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 27px;
-  margin-left: auto;
-}
-
-.nav a {
-  font-size: 14px;
-  font-weight: 600;
-  transition: .3s;
-}
-
-.nav a:hover {
-  opacity: .55;
-}
-
-.language-switcher {
-  display: flex;
-  gap: 4px;
-  margin-left: 10px;
-}
-
-.lang-btn {
-  border: 0;
-  background: transparent;
-  padding: 7px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-.lang-btn.active,
-.lang-btn:hover {
-  background: #101828;
-  color: white;
-}
-
-.menu-toggle {
-  display: none;
-  border: 0;
-  background: transparent;
-  font-size: 27px;
-  cursor: pointer;
-}
-
-
-/* HERO */
-
-.hero {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  background:
-    linear-gradient(90deg, rgba(5,18,35,.92), rgba(5,18,35,.55)),
-    url("Ad.jpg") center/cover no-repeat;
-  color: white;
-}
-
-.hero-content {
-  width: min(900px, 92%);
-  margin: 80px auto 0;
-  position: relative;
-  z-index: 2;
-}
-
-.eyebrow {
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  opacity: .8;
-}
-
-.hero h1 {
-  max-width: 900px;
-  font-size: clamp(42px, 7vw, 82px);
-  line-height: 1.02;
-  margin: 22px 0;
-  letter-spacing: -3px;
-}
-
-.hero p {
-  max-width: 650px;
-  font-size: 19px;
-  opacity: .9;
-  margin-bottom: 35px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-
-/* BUTTONS */
-
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 14px 23px;
-  border-radius: 7px;
-  font-weight: bold;
-  font-size: 14px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.btn-primary {
-  background: #101828;
-  color: white;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  opacity: .88;
-}
-
-.hero .btn-primary {
-  background: white;
-  color: #101828;
-}
-
-.btn-outline {
-  border-color: rgba(255,255,255,.5);
-  color: white;
-}
-
-.btn-outline:hover {
-  background: white;
-  color: #101828;
-}
-
-
-/* SECTIONS */
-
-.section {
-  padding: 110px 0;
-}
-
-.section-label {
-  display: block;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 17px;
-  opacity: .65;
-}
-
-.intro {
-  text-align: center;
-}
-
-.intro .container {
-  max-width: 850px;
-}
-
-.intro h2,
-.section-heading h2,
-.platform-content h2,
-.contact h2 {
-  font-size: clamp(35px, 5vw, 58px);
-  line-height: 1.08;
-  letter-spacing: -2px;
-  margin-bottom: 22px;
-}
-
-.section-text {
-  color: #667085;
-  font-size: 18px;
-}
-
-
-/* SERVICES */
-
-.services {
-  background: #f7f8fa;
-}
-
-.section-heading {
-  margin-bottom: 55px;
-  max-width: 800px;
-}
-
-.section-heading p {
-  color: #667085;
-}
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
-.service-card {
-  background: white;
-  padding: 32px 27px;
-  min-height: 270px;
-  border: 1px solid #eaecf0;
-  border-radius: 10px;
-  transition: .3s;
-}
-
-.service-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 20px 50px rgba(16,24,40,.08);
-}
-
-.service-number {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 70px;
-  opacity: .45;
-}
-
-.service-card h3 {
-  font-size: 21px;
-  margin-bottom: 12px;
-}
-
-.service-card p {
-  color: #667085;
-  font-size: 14px;
-}
-
-
-/* PLATFORM */
-
-.platform-grid {
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 70px;
-  align-items: center;
-}
-
-.platform-image {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.platform-image img {
-  width: 100%;
-  min-height: 450px;
-  object-fit: cover;
-}
-
-.platform-content p {
-  color: #667085;
-  margin-bottom: 30px;
-}
-
-
-/* NEWS */
-
-.news {
-  background: #f7f8fa;
-}
-
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-}
-
-.news-card {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid #eaecf0;
-  transition: .3s;
-}
-
-.news-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 18px 45px rgba(16,24,40,.08);
-}
-
-.news-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.news-body {
-  padding: 25px;
-}
-
-.article-category {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  opacity: .55;
-}
-
-.news-body h3 {
-  font-size: 22px;
-  line-height: 1.2;
-  margin-bottom: 12px;
-}
-
-.news-body p {
-  font-size: 14px;
-  color: #667085;
-  margin-bottom: 18px;
-}
-
-.article-date {
-  font-size: 12px;
-  color: #98a2b3;
-}
-
-.read-more {
-  display: inline-block;
-  margin-top: 15px;
-  font-size: 13px;
-  font-weight: bold;
-  border-bottom: 1px solid #101828;
-  padding-bottom: 2px;
-}
-
-.empty-news {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 60px;
-  background: white;
-  border-radius: 10px;
-  color: #667085;
-}
-
-.loading-circle {
-  width: 25px;
-  height: 25px;
-  border: 3px solid #ddd;
-  border-top-color: #101828;
-  border-radius: 50%;
-  margin: auto auto 15px;
-  animation: spin .8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-/* CONTACT */
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-}
-
-.contact p {
-  color: #667085;
-  max-width: 500px;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  border: 1px solid #d0d5dd;
-  border-radius: 7px;
-  padding: 15px;
-  font-family: inherit;
-  font-size: 14px;
-  outline: none;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #101828;
-}
-
-
-/* FOOTER */
-
-.footer {
-  background: #0b1220;
-  color: white;
-  padding-top: 70px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 50px;
-  padding-bottom: 60px;
-}
-
-.footer-logo {
-  width: 125px;
-  height: 55px;
-  object-fit: contain;
-  background: white;
-  border-radius: 5px;
-  margin-bottom: 18px;
-}
-
-.footer p {
-  color: #98a2b3;
-  font-size: 14px;
-}
-
-.footer h4 {
-  margin-bottom: 15px;
-}
-
-.footer a {
-  display: block;
-  color: #98a2b3;
-  font-size: 14px;
-  margin: 8px 0;
-}
-
-.footer a:hover {
-  color: white;
-}
-
-.copyright {
-  border-top: 1px solid rgba(255,255,255,.08);
-  padding: 20px;
-  text-align: center;
-  color: #98a2b3;
-  font-size: 12px;
-}
-
-
-/* MODAL */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  z-index: 3000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal-content {
-  width: min(800px, 100%);
-  max-height: 90vh;
-  overflow-y: auto;
-  background: white;
-  border-radius: 12px;
-  position: relative;
-}
-
-.modal-content > img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-}
-
-.modal-body {
-  padding: 35px;
-}
-
-.modal-body h2 {
-  font-size: 35px;
-  line-height: 1.1;
-  margin: 8px 0;
-}
-
-.article-full-text {
-  margin-top: 25px;
-  color: #475467;
-  white-space: pre-line;
-}
-
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 5;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 50%;
-  background: white;
-  font-size: 27px;
-  cursor: pointer;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 900px) {
-
-  .nav {
-    position: absolute;
-    top: 78px;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 20px;
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    box-shadow: 0 15px 30px rgba(0,0,0,.08);
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .nav a {
-    padding: 14px 5px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-  }
-
-  .language-switcher {
-    margin-left: auto;
-  }
-
-  .service-grid,
-  .news-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .platform-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-
-@media (max-width: 600px) {
-
-  .nav-container {
-    min-height: 68px;
-  }
-
-  .logo img {
-    width: 105px;
-  }
-
-  .language-switcher {
-    gap: 0;
-  }
-
-  .lang-btn {
-    padding: 5px;
-    font-size: 10px;
-  }
-
-  .hero h1 {
-    letter-spacing: -1.5px;
-  }
-
-  .hero p {
-    font-size: 16px;
-  }
-
-  .section {
-    padding: 75px 0;
-  }
-
-  .service-grid,
-  .news-grid,
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service-number {
-    margin-bottom: 35px;
-  }
-
-  .platform-image img {
-    min-height: 280px;
-  }
-
-  .modal-body {
-    padding: 25px;
-  }
-
-  .modal-body h2 {
-    font-size: 27px;
-  }
-}</style>
-
-<section class="platform section">
-
-  <div class="container platform-grid">
-
-    <div class="platform-image">
-      <img src="plateforme.jpg" alt="Plateforme AFRINOVA">
-    </div>
-
-    <div class="platform-content">
-
-      <span class="section-label">
-        NOTRE APPROCHE
-      </span>
-
-      <h2>
-        Une vision digitale orientée vers l'impact
-      </h2>
-
-      <p>
-        Nous combinons innovation, technologie et stratégie
-        afin de construire des solutions utiles, accessibles
-        et durables.
-      </p>
-
-      <a href="#contact" class="btn btn-primary">
-        Parlons de votre projet
-      </a>
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<section class="news section" id="actualites">
+<!-- =========================
+     CONTEXTE
+========================= -->
 
-  <div class="container">
+<section class="stats-section">
 
-    <div class="section-heading">
+    <div class="section-container">
 
-      <span class="section-label">
-        ACTUALITÉS
-      </span>
+        <div class="section-intro">
 
-      <h2>
-        Nos dernières publications
-      </h2>
+            <span
+                class="section-label"
+                data-i18n="contextLabel">
+                LE CONTEXTE
+            </span>
 
-      <p>
-        Découvrez les dernières informations, analyses,
-        événements et publications d'AFRINOVA.
-      </p>
+            <h2 data-i18n="contextTitle">
+                Le contexte qui nous a conduits ici
+            </h2>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <strong>$100B+</strong>
+
+                <p data-i18n="stat1">
+                    Marché mondial du conseil en transformation
+                    digitale en 2026
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <strong>25,86%</strong>
+
+                <p data-i18n="stat2">
+                    Taux de croissance annuel du marché
+                    en Afrique et au Moyen-Orient
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <strong>48%</strong>
+
+                <p data-i18n="stat3">
+                    D'Africains ayant accès à Internet,
+                    révélant un important potentiel
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <strong>3</strong>
+
+                <p data-i18n="stat4">
+                    Continents connectés par notre réseau
+                    de recherche
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
-
-    <div id="publicationsContainer" class="news-grid">
-
-      <div class="empty-news">
-        <div class="loading-circle"></div>
-        <p>Chargement des publications...</p>
-      </div>
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<section class="contact section" id="contact">
+<!-- =========================
+     LABORATOIRE
+========================= -->
 
-  <div class="container contact-grid">
+<section
+    class="section"
+    id="laboratoire">
 
-    <div>
+    <div class="section-container two-columns">
 
-      <span class="section-label">
-        CONTACT
-      </span>
+        <div>
 
-      <h2>
-        Construisons ensemble le futur digital.
-      </h2>
+            <span
+                class="section-label"
+                data-i18n="labLabel">
+                NOTRE LABORATOIRE
+            </span>
 
-      <p>
-        Vous avez un projet de transformation digitale,
-        d'innovation ou de développement numérique ?
-        Contactez-nous.
-      </p>
+            <h2 data-i18n="labTitle">
+                Recherche appliquée.
+                Technologie transférée.
+                Impact réel.
+            </h2>
+
+        </div>
+
+        <div>
+
+            <p data-i18n="labText1">
+                AFRINOVA est un laboratoire collaboratif
+                international où la recherche appliquée
+                et la mise en œuvre pratique coexistent.
+            </p>
+
+            <p data-i18n="labText2">
+                Nous ne sommes ni une consultance traditionnelle
+                ni une organisation académique isolée. Nous créons
+                un espace où les connaissances produites répondent
+                aux besoins réels des organisations.
+            </p>
+
+        </div>
 
     </div>
 
-    <form class="contact-form" onsubmit="sendContact(event)">
+</section>
 
-      <input
-        type="text"
-        id="contactName"
-        placeholder="Votre nom"
-        required
-      >
 
-      <input
-        type="email"
-        id="contactEmail"
-        placeholder="Votre adresse email"
-        required
-      >
+<!-- =========================
+     AXES
+========================= -->
 
-      <textarea
-        id="contactMessage"
-        placeholder="Votre message"
-        rows="6"
-        required
-      ></textarea>
+<section
+    class="section section-dark"
+    id="axes">
 
-      <button class="btn btn-primary" type="submit">
-        Envoyer le message
-      </button>
+    <div class="section-container">
 
-    </form>
+        <div class="section-heading">
 
-  </div>
+            <span
+                class="section-label">
+                AFRINOVA
+            </span>
+
+            <h2 data-i18n="axesTitle">
+                Quatre axes. Un laboratoire.
+            </h2>
+
+            <p data-i18n="axesIntro">
+                La recherche et la livraison pratique
+                au service de la transformation digitale.
+            </p>
+
+        </div>
+
+
+        <div class="axes-grid">
+
+            <article class="axis-card">
+
+                <span class="axis-number">
+                    01
+                </span>
+
+                <h3 data-i18n="axis1Title">
+                    Recherche appliquée
+                </h3>
+
+                <p data-i18n="axis1Text">
+                    Produire des connaissances orientées
+                    vers l'application et répondre à des
+                    problématiques réelles.
+                </p>
+
+            </article>
+
+
+            <article class="axis-card">
+
+                <span class="axis-number">
+                    02
+                </span>
+
+                <h3 data-i18n="axis2Title">
+                    Transfert de technologie
+                </h3>
+
+                <p data-i18n="axis2Text">
+                    Relier les solutions développées en Europe
+                    aux contextes africains capables de les
+                    déployer, et inversement.
+                </p>
+
+            </article>
+
+
+            <article class="axis-card">
+
+                <span class="axis-number">
+                    03
+                </span>
+
+                <h3 data-i18n="axis3Title">
+                    Formation spécialisée
+                </h3>
+
+                <p data-i18n="axis3Text">
+                    Renforcer les capacités des équipes et
+                    institutions pour leur permettre d'opérer
+                    avec autonomie numérique.
+                </p>
+
+            </article>
+
+
+            <article class="axis-card">
+
+                <span class="axis-number">
+                    04
+                </span>
+
+                <h3 data-i18n="axis4Title">
+                    Incubation et accompagnement
+                </h3>
+
+                <p data-i18n="axis4Text">
+                    Soutenir les startups et initiatives
+                    présentant un potentiel d'impact sur
+                    les marchés où nous opérons.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INITIATIVES
+========================= -->
+
+<section
+    class="section"
+    id="initiatives">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <span
+                class="section-label"
+                data-i18n="initiativeLabel">
+                INITIATIVES
+            </span>
+
+            <h2 data-i18n="initiativeTitle">
+                Le travail que nous construisons
+            </h2>
+
+        </div>
+
+
+        <div class="initiative-grid">
+
+            <article class="initiative-card">
+
+                <span>GOUVERNANCE</span>
+
+                <h3 data-i18n="initiative1Title">
+                    Transformation digitale
+                    des administrations publiques
+                </h3>
+
+                <p data-i18n="initiative1Text">
+                    Analyse et accompagnement de la
+                    modernisation digitale des institutions
+                    publiques, des services locaux à la
+                    gouvernance électronique nationale.
+                </p>
+
+                <div class="tags">
+                    <span>e-Governance</span>
+                    <span data-i18n="tagPublic">
+                        Administration publique
+                    </span>
+                </div>
+
+            </article>
+
+
+            <article class="initiative-card">
+
+                <span>ÉCONOMIE</span>
+
+                <h3 data-i18n="initiative2Title">
+                    Économie digitale et fiscalité digitale
+                </h3>
+
+                <p data-i18n="initiative2Text">
+                    Étude des transformations économiques
+                    liées à la digitalisation et de leurs
+                    implications fiscales et réglementaires.
+                </p>
+
+                <div class="tags">
+                    <span>Économie digitale</span>
+                    <span>Fiscalité</span>
+                </div>
+
+            </article>
+
+
+            <article class="initiative-card">
+
+                <span>GOUVERNANCE</span>
+
+                <h3 data-i18n="initiative3Title">
+                    Gouvernance digitale et politiques publiques
+                </h3>
+
+                <p data-i18n="initiative3Text">
+                    Mécanismes de gouvernance digitale et
+                    intégration des technologies dans les
+                    politiques publiques, avec un accent
+                    sur les données et l'inclusion.
+                </p>
+
+                <div class="tags">
+                    <span>Data</span>
+                    <span>Régulation</span>
+                    <span>Inclusion</span>
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ÉQUIPE
+========================= -->
+
+<section
+    class="section team-section"
+    id="equipe">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <span
+                class="section-label"
+                data-i18n="teamLabel">
+                QUI SOMMES-NOUS ?
+            </span>
+
+            <h2 data-i18n="teamTitle">
+                Les personnes derrière le laboratoire
+            </h2>
+
+        </div>
+
+
+        <div class="team-grid">
+
+            <article class="team-card">
+
+                <div class="team-photo">
+
+                    <img
+                        src="images1.jpg"
+                        alt="Moïse Fomo"
+                        onerror="this.src='logo2.jpg'">
+
+                </div>
+
+                <div class="team-info">
+
+                    <span data-i18n="member1Role">
+                        Fondateur & Directeur
+                        du Développement et de l'Innovation
+                    </span>
+
+                    <h3>
+                        Moïse Fomo
+                    </h3>
+
+                    <p data-i18n="member1Bio">
+                        Fondateur du Laboratoire de Transformation
+                        Digitale AFRINOVA. Spécialiste en économie
+                        digitale, chaîne d'approvisionnement digitale
+                        et logistique.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="team-card">
+
+                <div class="team-photo">
+
+                    <img
+                        src="images2.jpg"
+                        alt="Rúben Pereira"
+                        onerror="this.src='logo2.jpg'">
+
+                </div>
+
+                <div class="team-info">
+
+                    <span data-i18n="member2Role">
+                        Directeur de la Recherche Scientifique
+                    </span>
+
+                    <h3>
+                        Rúben Pereira
+                    </h3>
+
+                    <p data-i18n="member2Bio">
+                        Professeur et consultant spécialisé dans
+                        l'optimisation et la gouvernance des processus
+                        métier, BPM, architecture d'entreprise et
+                        transformation digitale.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="team-card">
+
+                <div class="team-photo">
+
+                    <img
+                        src="images3.jpg"
+                        alt="Banilson Zua"
+                        onerror="this.src='logo2.jpg'">
+
+                </div>
+
+                <div class="team-info">
+
+                    <span data-i18n="member3Role">
+                        Directeur des Techniques et Applications
+                    </span>
+
+                    <h3>
+                        Banilson Zua
+                    </h3>
+
+                    <p data-i18n="member3Bio">
+                        Fullstack Developer, support informatique
+                        et designer digital. React.js, Next.js,
+                        Node.js et PostgreSQL.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LOCALISATION
+========================= -->
+
+<section class="locations-section">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <span
+                class="section-label"
+                data-i18n="locationLabel">
+                PRÉSENCE INTERNATIONALE
+            </span>
+
+            <h2 data-i18n="locationTitle">
+                Fondé à Lisbonne.
+                Enraciné sur trois continents.
+            </h2>
+
+            <p data-i18n="locationText">
+                AFRINOVA opère à l'intersection de l'Europe,
+                de l'Afrique et de l'Amérique du Nord.
+            </p>
+
+        </div>
+
+
+        <div class="locations-grid">
+
+            <div class="location-card">
+
+                <strong>
+                    LISBONNE
+                </strong>
+
+                <span>
+                    🇵🇹 Portugal
+                </span>
+
+                <p data-i18n="lisbon">
+                    Siège principal · Hub européen
+                </p>
+
+            </div>
+
+
+            <div class="location-card">
+
+                <strong>
+                    YAOUNDÉ
+                </strong>
+
+                <span>
+                    🇨🇲 Cameroun
+                </span>
+
+                <p data-i18n="yaounde">
+                    Délégation · Hub africain
+                </p>
+
+            </div>
+
+
+            <div class="location-card">
+
+                <strong>
+                    QUÉBEC
+                </strong>
+
+                <span>
+                    🇨🇦 Canada
+                </span>
+
+                <p data-i18n="quebec">
+                    Délégation · Hub nord-américain
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ACTUALITÉS
+========================= -->
+
+<section
+    class="section news-section"
+    id="actualites">
+
+    <div class="section-container">
+
+        <div class="section-heading news-heading">
+
+            <div>
+
+                <span
+                    class="section-label"
+                    data-i18n="newsLabel">
+                    ACTUALITÉS
+                </span>
+
+                <h2 data-i18n="newsTitle">
+                    Publications AFRINOVA
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="publicationsContainer"
+            class="publications-grid">
+
+        </div>
+
+
+        <div
+            id="emptyPublications"
+            class="empty-news"
+            data-i18n="emptyNews">
+
+            Les prochaines publications AFRINOVA
+            apparaîtront ici.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+    class="contact-section"
+    id="contact">
+
+    <div class="section-container contact-grid">
+
+        <div>
+
+            <span
+                class="section-label">
+                AFRINOVA
+            </span>
+
+            <h2 data-i18n="contactTitle">
+                Faites partie du laboratoire
+            </h2>
+
+            <p data-i18n="contactText">
+                Que vous soyez associé, partenaire institutionnel
+                ou collaborateur, AFRINOVA dispose d'une manière
+                de travailler avec vous.
+            </p>
+
+
+            <div class="contact-details">
+
+                <div>
+                    <strong data-i18n="addressLabel">
+                        Siège
+                    </strong>
+
+                    <span>
+                        Rua das Furnas, n.º 20,
+                        2.º E, Benfica,
+                        1500-300 Lisboa,
+                        Portugal
+                    </span>
+                </div>
+
+
+                <div>
+                    <strong data-i18n="phoneLabel">
+                        Téléphone
+                    </strong>
+
+                    <span>
+                        +351 915 341 842
+                    </span>
+                </div>
+
+
+                <div>
+                    <strong>
+                        Email
+                    </strong>
+
+                    <span>
+                        afrinovalaboratory@gmail.com
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-form-card">
+
+            <h3 data-i18n="formTitle">
+                Entrer en contact
+            </h3>
+
+            <p data-i18n="formText">
+                Remplissez le formulaire et notre équipe
+                vous répondra dans les meilleurs délais.
+            </p>
+
+
+            <form id="contactForm">
+
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Nom complet"
+                    data-placeholder="name"
+                    required>
+
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Votre email"
+                    data-placeholder="email"
+                    required>
+
+
+                <input
+                    type="text"
+                    id="contactOrganization"
+                    placeholder="Organisation / Institution"
+                    data-placeholder="organization">
+
+
+                <select
+                    id="contactType"
+                    required>
+
+                    <option value="" data-i18n="selectMembership">
+                        Type de demande
+                    </option>
+
+                    <option data-i18n="membership1">
+                        Associé
+                    </option>
+
+                    <option data-i18n="membership2">
+                        Associé honoraire
+                    </option>
+
+                    <option data-i18n="membership3">
+                        Partenariat institutionnel
+                    </option>
+
+                    <option data-i18n="membership4">
+                        Collaboration
+                    </option>
+
+                </select>
+
+
+                <textarea
+                    id="contactMessage"
+                    placeholder="Votre message"
+                    data-placeholder="message"
+                    required></textarea>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-dark"
+                    data-i18n="sendMessage">
+
+                    Envoyer le message
+
+                </button>
+
+                <p
+                    id="formStatus"
+                    class="form-status">
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </section>
 
 </main>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer class="footer">
 
-  <div class="container footer-grid">
+    <div class="section-container footer-grid">
 
-    <div>
-      <img src="logo2.jpg" class="footer-logo" alt="AFRINOVA">
+        <div>
 
-      <p>
-        Laboratoire de Transformation Digitale.
-      </p>
+            <div class="footer-brand">
+                AFRINOVA
+            </div>
+
+            <p data-i18n="footerText">
+                Recherche appliquée.
+                Technologie transférée.
+                Impact réel.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4 data-i18n="footerLab">
+                Laboratoire
+            </h4>
+
+            <a href="#laboratoire" data-i18n="navLab">
+                À propos
+            </a>
+
+            <a href="#equipe" data-i18n="navTeam">
+                Équipe
+            </a>
+
+            <a href="#actualites" data-i18n="navNews">
+                Blog
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h4 data-i18n="footerServices">
+                Services
+            </h4>
+
+            <a href="#axes" data-i18n="axis1Title">
+                Recherche
+            </a>
+
+            <a href="#axes" data-i18n="axis2Title">
+                Technologie
+            </a>
+
+            <a href="#axes" data-i18n="axis3Title">
+                Formation
+            </a>
+
+            <a href="#axes" data-i18n="axis4Title">
+                Incubation
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h4 data-i18n="footerOrganization">
+                Organisation
+            </h4>
+
+            <a href="#contact">
+                Lisbonne
+            </a>
+
+            <a href="#contact">
+                Yaoundé
+            </a>
+
+            <a href="#contact">
+                Québec
+            </a>
+
+        </div>
+
     </div>
 
-    <div>
-      <h4>Navigation</h4>
 
-      <a href="#accueil">Accueil</a>
-      <a href="#apropos">À propos</a>
-      <a href="#services">Services</a>
-      <a href="#actualites">Actualités</a>
-      <a href="#contact">Contact</a>
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 AFRINOVA. 
+        </span>
+
+        <span data-i18n="footerLegal">
+            Association sans but lucratif.
+        </span>
+
     </div>
-
-    <div>
-      <h4>Administration</h4>
-
-      <a href="admin.html">
-        Espace administrateur
-      </a>
-    </div>
-
-  </div>
-
-  <div class="copyright">
-    © 2026 AFRINOVA. Tous droits réservés.
-  </div>
 
 </footer>
 
 
-<div id="articleModal" class="modal">
+<!-- =========================
+     ADMIN
+========================= -->
 
-  <div class="modal-content">
-
-    <button class="modal-close" onclick="closeArticle()">
-      ×
-    </button>
-
-    <img id="modalImage" src="" alt="">
-
-    <div class="modal-body">
-
-      <span id="modalCategory" class="article-category"></span>
-
-      <h2 id="modalTitle"></h2>
-
-      <div id="modalDate" class="article-date"></div>
-
-      <div id="modalText" class="article-full-text"></div>
-
-    </div>
-
-  </div>
-
-</div>
+<a
+    href="admin.html"
+    class="admin-access"
+    title="Administration">
+    ⚙
+</a>
 
 
 <script src="script.js"></script>
 
 </body>
 </html>
+ 
+ 
